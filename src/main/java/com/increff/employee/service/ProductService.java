@@ -1,6 +1,8 @@
 package com.increff.employee.service;
 
+import com.increff.employee.dao.InventoryDao;
 import com.increff.employee.dao.ProductDao;
+import com.increff.employee.pojo.InventoryPojo;
 import com.increff.employee.pojo.ProductPojo;
 import com.increff.employee.util.StringUtil;
 import com.sun.scenario.effect.impl.sw.sse.SSEBlend_SRC_OUTPeer;
@@ -15,6 +17,8 @@ public class ProductService {
 
 	@Autowired
 	private ProductDao dao;
+	@Autowired
+	private InventoryDao inventoryDao;
 
 	//ADDING A BRAND
 	@Transactional(rollbackOn = ApiException.class)
@@ -24,14 +28,23 @@ public class ProductService {
 		if(StringUtil.isEmpty(p.getName())) {
 			throw new ApiException("name cannot be empty");
 		}
-		System.out.println("service runnin");
 		dao.insert(p);
+		InventoryPojo inventoryPojo = new InventoryPojo();
+		inventoryPojo.setQuantity(0);
+		inventoryPojo.setId(p.getId());
+		inventoryDao.insert(inventoryPojo);
 	}
 
 	//GETTING A BRAND
 	@Transactional(rollbackOn = ApiException.class)
 	public ProductPojo get(int id) throws ApiException {
 		return getCheck(id);
+	}
+
+	//GETTING A BRAND BY BARCODE
+	@Transactional(rollbackOn = ApiException.class)
+	public ProductPojo get(String barcode) throws ApiException {
+		return dao.select(barcode);
 	}
 
 	//GET ALL BRANDS
@@ -44,6 +57,7 @@ public class ProductService {
 	@Transactional(rollbackOn  = ApiException.class)
 	public void update(int id, ProductPojo p) throws ApiException {
 		normalize(p);
+		barcodeCheck(p.getBarcode(),id);
 		ProductPojo ex = getCheck(id);
 		ex.setMrp(p.getMrp());
 		ex.setName(p.getName());
@@ -66,6 +80,16 @@ public class ProductService {
 		for(ProductPojo p : arr)
 		{
 			if(p.getBarcode().equals(barcode)) throw new ApiException("Barcode already exists!!");
+		}
+		return;
+	}
+
+	@Transactional
+	public void barcodeCheck(String barcode, int id) throws ApiException {
+		List<ProductPojo> arr = dao.selectAll();
+		for(ProductPojo p : arr)
+		{
+			if(p.getBarcode().equals(barcode) && p.getId()!=id) throw new ApiException("Barcode already exists!!");
 		}
 		return;
 	}

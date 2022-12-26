@@ -43,7 +43,6 @@ public class BrandDao extends AbstractDao {
 		TypedQuery<BrandPojo> query = getQuery(select_name_cat, BrandPojo.class);
 		query.setParameter("name", name);
 		query.setParameter("category", category);
-//		return getSingle(query);
 		return query.getSingleResult();
 	}
 

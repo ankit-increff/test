@@ -15,7 +15,7 @@
  <!-- Top row with form-->
  <div class="row">
 	 <div class="col-12">
-			<form class="form-inline" id="employee-form">
+			<form class="form-inline" id="product-form">
 			  <div class="form-group">
 			    <label for="inputName" class="col-sm-2 col-form-label">Name</label>
 			    <div class="col-sm-10">
@@ -48,7 +48,7 @@
 				</div>
 
 
-			  <button type="button" class="btn btn-primary" id="add-employee">Add</button>
+			  <button type="button" class="btn btn-primary" id="add-product">Add</button>
 			  &nbsp;
 			  <button type="button" class="btn btn-primary" id="refresh-data">Refresh</button>
 			  &nbsp;
@@ -66,13 +66,14 @@
 
  <!-- Table -->
  <div class="col-12">
-	<table class="table table-striped" id="employee-table">
+	<table class="table table-striped" id="product-table">
 	  <thead>
 	    <tr>
 	      <th scope="col">ID</th>
 	      <th scope="col">Name</th>
 	      <th scope="col">Barcode</th>
-	      <th scope="col">BrandId</th>
+	      <th scope="col">Brand Name</th>
+			<th scope="col">Brand Category</th>
 			<th scope="col">MRP</th>
 			<th scope="col">Actions</th>
 
@@ -84,6 +85,7 @@
 	      <td>Romil Jain</td>
 	      <td>30</td>
 			<td>Romil Jain</td>
+			<td>Romil Jain</td>
 			<td>4983</td>
 	      <td>Edit | Delete</td>
 	    </tr>
@@ -92,6 +94,7 @@
 	      <td>Rajul Jain</td>
 	      <td>31</td>
 			<td>Romil Jain</td>
+			<td>Romil Jain</td>
 			<td>43</td>
 	      <td>Edit | Delete</td>
 	    </tr>
@@ -99,6 +102,7 @@
 	      <td>3</td>
 	      <td>Anaisha Jain</td>
 	      <td>7</td>
+			<td>Romil Jain</td>
 			<td>Romil Jain</td>
 			<td>39</td>
 	      <td>Edit | Delete</td>
@@ -121,12 +125,32 @@
       </div>
       <div class="modal-body">
 			<form class="form-inline" id="product-edit-form">
+
 			  <div class="form-group">
 			    <label for="inputName" class="col-sm-2 col-form-label">Name</label>
 			    <div class="col-sm-10">
 			      <input type="text" class="form-control" name="name" placeholder="enter name">
 			    </div>
 			  </div>
+				<div class="form-group">
+					<label for="inputBarcode" class="col-sm-2 col-form-label">Barcode</label>
+					<div class="col-sm-10">
+						<input type="text" class="form-control" name="barcode" placeholder="enter barcode">
+					</div>
+				</div>
+				<div class="form-group">
+					<label for="inputBrand" class="col-sm-2 col-form-label">Brand name</label>
+					<div class="col-sm-10">
+						<input type="text" class="form-control" name="brand" placeholder="enter brand name">
+					</div>
+				</div>
+				<div class="form-group">
+					<label for="inputCategory" class="col-sm-2 col-form-label">Brand Category</label>
+					<div class="col-sm-10">
+						<input type="text" class="form-control" name="category" placeholder="enter category">
+					</div>
+				</div>
+
 			  <div class="form-group">
 			    <label for="inputMrp" class="col-sm-2 col-form-label">MRP</label>
 			    <div class="col-sm-10">
@@ -182,7 +206,7 @@
 
 <footer th:replace="snippets.html :: name_footer"></footer>
 
-<!--<script th:src="@{/static/product.js}"/></script>-->
+<script th:src="@{/static/product.js}"/></script>
 
 </body>	
 

@@ -30,9 +30,7 @@ public class ProductApiController {
 	@ApiOperation(value = "Adds a product")
 	@RequestMapping(path = "/api/product", method = RequestMethod.POST)
 	public void add(@RequestBody ProductForm form) throws ApiException {
-		System.out.println("runnin");
 		ProductPojo p = convert(form);
-		System.out.println("runnin 2");
 		service.add(p);
 	}
 
@@ -73,21 +71,19 @@ public class ProductApiController {
 		BrandPojo brand = brandService.get(p.getBrandId());
 		d.setBrand(brand.getName());
 		d.setCategory(brand.getCategory());
+//		System.out.println(d.getMrp());
 
 		return d;
 	}
 
 //	@Transactional(rollbackOn = ApiException.class)
 	private ProductPojo convert(ProductForm f) throws ApiException {
-		System.out.println("runnin 3");
 		ProductPojo p = new ProductPojo();
 		p.setName(f.getName());
 		p.setBarcode(f.getBarcode());
 		p.setMrp(Double.parseDouble(f.getMrp()));
-		System.out.println("runnin 4 "+ f.getCategory()+f.getBrand());
 		BrandPojo bp = brandService.get(f.getBrand(), f.getCategory());
 
-		System.out.println("runnin 5 ");
 		p.setBrandId(bp.getId());
 		return p;
 	}

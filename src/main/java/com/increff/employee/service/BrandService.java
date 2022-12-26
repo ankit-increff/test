@@ -20,8 +20,8 @@ public class BrandService {
 	public void add(BrandPojo p) throws ApiException {
 		normalize(p);
 		alreadyExistingCheck(p);
-		if(StringUtil.isEmpty(p.getName())) {
-			throw new ApiException("name cannot be empty");
+		if(StringUtil.isEmpty(p.getName()) || StringUtil.isEmpty(p.getCategory())) {
+			throw new ApiException("name or category cannot be empty");
 		}
 		dao.insert(p);
 	}
@@ -55,6 +55,9 @@ public class BrandService {
 	@Transactional(rollbackOn  = ApiException.class)
 	public void update(int id, BrandPojo p) throws ApiException {
 		normalize(p);
+		if(StringUtil.isEmpty(p.getName()) || StringUtil.isEmpty(p.getCategory())) {
+			throw new ApiException("name or category cannot be empty");
+		}
 		BrandPojo ex = getCheck(id);
 		alreadyExistingCheck(p);
 		ex.setCategory(p.getCategory());
@@ -96,5 +99,6 @@ public class BrandService {
 
 	protected static void normalize(BrandPojo p) {
 		p.setName(StringUtil.toLowerCase(p.getName()));
+		p.setCategory(StringUtil.toLowerCase(p.getCategory()));
 	}
 }

@@ -13,6 +13,7 @@ import java.util.List;
 public class ProductDao extends AbstractDao {
 
 	private static String select_id = "select p from ProductPojo p where id=:id";
+	private static String select_barcode = "select p from ProductPojo p where barcode=:barcode";
 	private static String select_all = "select p from ProductPojo p";
 
 	@PersistenceContext
@@ -20,7 +21,7 @@ public class ProductDao extends AbstractDao {
 
 	@Transactional
 	public void insert(ProductPojo p) {
-		System.out.println(p.getName()+p.getId()+p.getBarcode()+p.getMrp()+p.getBrandId());
+//		System.out.println(p.getName()+p.getId()+p.getBarcode()+p.getMrp()+p.getBrandId());
 		em.persist(p);
 	}
 
@@ -29,6 +30,13 @@ public class ProductDao extends AbstractDao {
 		query.setParameter("id", id);
 		return getSingle(query);
 	}
+
+	public ProductPojo select(String barcode) {
+		TypedQuery<ProductPojo> query = getQuery(select_barcode, ProductPojo.class);
+		query.setParameter("barcode", barcode);
+		return getSingle(query);
+	}
+
 
 	public List<ProductPojo> selectAll() {
 		TypedQuery<ProductPojo> query = getQuery(select_all, ProductPojo.class);
