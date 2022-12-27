@@ -55,10 +55,10 @@ public class InventoryApiController {
 	}
 
 	@ApiOperation(value = "Updates an inventory")
-	@RequestMapping(path = "/api/inventory/{id}", method = RequestMethod.PUT)
-	public void update(@PathVariable int id, @RequestBody InventoryForm f) throws ApiException {
+	@RequestMapping(path = "/api/inventory/{barcode}", method = RequestMethod.PUT)
+	public void update(@PathVariable String barcode, @RequestBody InventoryForm f) throws ApiException {
 		InventoryPojo p = convert(f);
-		service.update(id, p);
+		service.update(p.getId(), p);
 	}
 	
 

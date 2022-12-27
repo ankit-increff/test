@@ -34,8 +34,10 @@ function updateInventory(event){
     console.log("update running...");
 	$('#edit-inventory-modal').modal('toggle');
 	//Get the ID
-	var id = $("#inventory-edit-form input[name=id]").val();
-	var url = getInventoryUrl() + "/" + id;
+	var barcode = $("#inventory-edit-form input[name=barcode]").val();
+//	console.log(barcode)
+	var url = getInventoryUrl() + "/" + barcode;
+//	console.log(url);
 
 
 	//Set the values to update
