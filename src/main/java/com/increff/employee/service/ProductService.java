@@ -44,7 +44,11 @@ public class ProductService {
 	//GETTING A BRAND BY BARCODE
 	@Transactional(rollbackOn = ApiException.class)
 	public ProductPojo get(String barcode) throws ApiException {
-		return dao.select(barcode);
+		ProductPojo p =  dao.select(barcode);
+		if(p==null) {
+			throw new ApiException("Barcode doesn't exists!!");
+		}
+		return p;
 	}
 
 	//GET ALL BRANDS
