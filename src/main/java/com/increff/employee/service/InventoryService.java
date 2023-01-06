@@ -46,7 +46,7 @@ public class InventoryService {
 	public InventoryPojo getCheck(int id) throws ApiException {
 		InventoryPojo p = dao.select(id);
 		if (p == null) {
-			throw new ApiException("Inventory with given ID does not exit, id: " + id);
+			throw new ApiException("Inventory with given ID does not exist, id: " + id);
 		}
 		return p;
 	}

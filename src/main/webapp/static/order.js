@@ -20,6 +20,13 @@ addItem.addEventListener("click", (e) => {
                                                      placeholder="enter quantity">
                                           </div>
                                       </div>
+									  <div class="form-group">
+                                          <label for=${"inputPrice-"+index} class="col-sm-2 col-form-label">Price</label>
+                                          <div class="col-sm-10">
+                                              <input type="number" class="form-control input-price" name="sellingPrice" id=${"inputprice-"+index}
+                                                     placeholder="enter price">
+                                          </div>
+                                      </div>
                                       <button type="button" class="btn btn-warning remove-item" id=${"removeItem-"+index}> - </button>
                                   </div>`;
 
@@ -37,6 +44,9 @@ addItem.addEventListener("click", (e) => {
         })
     }
 })
+
+
+let globalOrderId = 1;
 
 
 
@@ -120,10 +130,11 @@ function convertJson($form){
     var s = '';
 	var arr = [];
     
-    for(let i=0;i<serialized.length;i+=2){
+    for(let i=0;i<serialized.length;i+=3){
 		let data = {};
         data[serialized[i]['name']] = serialized[i]['value'];
 		data[serialized[s+1]['name']] = serialized[i+1]['value'];
+		data[serialized[s+2]['name']] = serialized[i+2]['value'];
 		arr.push(data);
     }
     var json = JSON.stringify(arr);
@@ -150,6 +161,134 @@ function displayOrderList(data){
         $tbody.append(row);
 	}
 }
+
+//_____________________________________________EDIT BUTTON FUNCTIONALITY____________________________________
+
+function displayEditOrder(id){
+	var url = getOrderUrl() + "/" + id;
+	globalOrderId = id;
+	$.ajax({
+	   url: url,
+	   type: 'GET',
+	   success: function(data) {
+	   		editOrderForm(data);
+	   },
+	   error: handleAjaxError
+	});
+}
+
+function editOrderForm(data) {
+	console.log(data);
+	var $orderId = document.querySelector("#order-id-edit")
+	console.log($orderId);
+	$orderId.innerText = `Order Id: ${data[0].orderId}`;
+	var $tbody = $('#order-edit-table').find('tbody');
+	$tbody.empty();
+	for(var i in data){
+		var e = data[i];
+		var buttonHtml = '<button onclick=removeFromModal(event)>Delete</button>'
+		var row = '<tr class="update-row">'
+		+ '<td class="update-barcode">' + e.barcode + '</td>'
+		+ '<td>' + e.name + '</td>'
+		+ '<td><input type="number" class="form-control w-50 update-quantity" value="'  + e.quantity + '"></td>'
+		+ '<td><input type="number" class="form-control w-50 update-price" value="'  + e.sellingPrice + '"></td>'
+		+ '<td>' + buttonHtml + '</td>'
+		+ '</tr>';
+        $tbody.append(row);
+	}	
+	$('#order-edit-modal').modal('toggle');
+}
+
+//_____________________________________________MODIFY EDIT TABLE____________________________________
+function addInEditTable() {
+	let barcode = document.querySelector(".edit-barcode");
+	var baseUrl = $("meta[name=baseUrl]").attr("content")
+	var productUrl = baseUrl + "/api/product"
+
+	var url = productUrl + "?barcode=" + barcode.value;
+	console.log(url);
+	$.ajax({
+	   url: url,
+	   type: 'GET',
+	   success: function(data) {
+			console.log(data);
+	   		displayInEditTable(data);
+	   },
+	   error: handleAjaxError
+	});
+}
+
+function displayInEditTable(e) {
+	let quantity = document.querySelector(".edit-quantity");
+	let price = document.querySelector(".edit-price");
+	let barcode = document.querySelector(".edit-barcode");
+	
+	var $tbody = $('#order-edit-table').find('tbody');
+		var buttonHtml = '<button onclick=removeFromModal(event)>Delete</button>'
+		var row = '<tr class="update-row">'
+		+ '<td class="update-barcode">' + e.barcode + '</td>'
+		+ '<td>' + e.name + '</td>'
+		+ '<td><input type="number" class="form-control w-50 update-quantity" value="'  + quantity.value + '"></td>'
+		+ '<td><input type="number" class="form-control w-50 update-price" value="'  + price.value + '"></td>'
+		+ '<td>' + buttonHtml + '</td>'
+		+ '</tr>';
+     $tbody.append(row);
+
+	 quantity.value = null;
+	 price.value = null;
+	 barcode.value = null;
+}
+
+
+function removeFromModal(e) {
+	console.log(e);
+	e.target.parentElement.parentElement.remove();
+}
+
+//____________________________________SUBMIT UPDATE ORDER________________________________________
+function updateOrder(e) {
+	console.log("update click registered!");
+	let rows = document.getElementsByClassName("update-row");
+	let req = [];
+	for(let i=0;i<rows.length;i++) {
+		let elem = rows[i];
+		let barcode = elem.querySelector(".update-barcode").innerText;
+		let quantity = elem.querySelector(".update-quantity").value;
+		let price = elem.querySelector(".update-price").value;
+
+		let obj = {
+			barcode,
+			quantity,
+			"sellingPrice": price
+		};
+		req.push(obj);
+	}
+	console.log(req);
+	var json = JSON.stringify(req);
+	var url = getOrderUrl() + "/" + globalOrderId;
+
+	console.log(json);
+
+	$.ajax({
+	   url: url,
+	   type: 'PUT',
+	   data: json,
+	   headers: {
+       	'Content-Type': 'application/json'
+       },
+	   success: function(response) {
+	   		getOrderList();
+			$('#order-edit-modal').modal('toggle');
+	   },
+	   error: handleAjaxError
+	});
+	
+}
+
+
+
+//____________________________________DETAILS BUTTON FUNCTIONALITY______________________________
+
 function displayOrderDetails(id){
 	var url = getOrderUrl() + "/" + id;
 	$.ajax({
@@ -180,7 +319,7 @@ function displayOrder(data){
 		+ '<td>' + e.barcode + '</td>'
 		+ '<td>' + e.name + '</td>'
 		+ '<td>'  + e.quantity + '</td>'
-		+ '<td>'  + e.amount + '</td>'
+		+ '<td>'  + e.sellingPrice + '</td>'
 		+ '</tr>';
         $tbody.append(row);
 	}	

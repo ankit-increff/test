@@ -1,14 +1,12 @@
 package com.increff.employee.model;
 
-import java.util.Date;
-
 public class OrderItemData {
 
 	private int orderId;
 	private String name;
 	private int quantity;
 	private String barcode;
-	private double amount;
+	private double sellingPrice;
 
 	public int getOrderId() {
 		return orderId;
@@ -42,11 +40,11 @@ public class OrderItemData {
 		this.barcode = barcode;
 	}
 
-	public double getAmount() {
-		return amount;
+	public double getSellingPrice() {
+		return sellingPrice;
 	}
 
-	public void setAmount(double amount) {
-		this.amount = amount;
+	public void setSellingPrice(double sellingPrice) {
+		this.sellingPrice = sellingPrice;
 	}
 }

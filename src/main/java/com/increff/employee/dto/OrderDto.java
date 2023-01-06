@@ -93,6 +93,7 @@ public class OrderDto {
         {
             checkQuantity(oldItems, f);
         }
+        System.out.println("running");
 
         //REVERTING OLD CHANGES IN INVENTORY
         for(OrderItemPojo item:oldItems)
@@ -101,12 +102,12 @@ public class OrderDto {
             int oldQuantity = inventoryService.get(productId).getQuantity();
             inventoryService.get(productId).setQuantity(oldQuantity + item.getQuantity());
         }
-
+        System.out.println("running2");
         //TIME UPDATE IN ORDER TABLE
         OrderPojo p = service.get(orderId);
         Date date = new Date();
         p.setDate(date);
-
+        System.out.println("running3");
 
         //INVENTORY UPDATE A/C TO NEW REQUIREMENTS
         Map<Integer, OrderForm> orderFormMap = new HashMap<>(); //map<productid, form>
@@ -115,18 +116,21 @@ public class OrderDto {
             orderFormMap.put(productId, f);
             updateInventory(f,productId);
         }
+        System.out.println("running4");
 
         //ORDER ITEM MANAGEMENT
         for(OrderItemPojo itemPojo : oldItems) {
             OrderForm f = orderFormMap.get(itemPojo.getProductId());
             if(f != null) {
                 itemPojo.setQuantity(f.getQuantity());
+                itemPojo.setSellingPrice(f.getSellingPrice());
                 orderFormMap.remove(itemPojo.getProductId());
             }
             else {
                 itemService.delete(itemPojo.getId());
             }
         }
+        System.out.println("running5");
 
         for(OrderForm f : orderFormMap.values())
         {
@@ -135,6 +139,7 @@ public class OrderDto {
             itemPojo.setOrderId(orderId);
             itemService.add(itemPojo);
         }
+        System.out.println("running6");
 
     }
     //----------------------------------------------------------------------------------------------------
@@ -143,14 +148,12 @@ public class OrderDto {
     private void checkQuantity(List<OrderItemPojo> oldItems, OrderForm newForm) throws ApiException {
         int productId = productService.get(newForm.getBarcode()).getId();
         for(OrderItemPojo f:oldItems) {
-//            System.out.println(f.getProductId()+" ~ "+productId+"\n");
             if(f.getProductId() == productId) {
-//                System.out.println("runnnin2");
                 if(f.getQuantity() < newForm.getQuantity()) {
-//                    System.out.println("runnnin");
                     OrderForm dummyForm = new OrderForm();
                     dummyForm.setBarcode(newForm.getBarcode());
                     dummyForm.setQuantity(newForm.getQuantity()-f.getQuantity());
+                    dummyForm.setSellingPrice(newForm.getSellingPrice());
                     checkInventory(dummyForm);
                 }
                 return;
@@ -163,9 +166,8 @@ public class OrderDto {
         OrderItemPojo p = new OrderItemPojo();
 
         ProductPojo product = productService.get(form.getBarcode());
-        double sellingPrice = (product.getMrp()*form.getQuantity());
         p.setQuantity(form.getQuantity());
-        p.setSellingPrice(sellingPrice);
+        p.setSellingPrice(form.getSellingPrice());
         p.setProductId(product.getId());
         return p;
     }
@@ -207,7 +209,7 @@ public class OrderDto {
         OrderItemData d = new OrderItemData();
         d.setOrderId(p.getOrderId());
         d.setQuantity(p.getQuantity());
-        d.setAmount(p.getSellingPrice());
+        d.setSellingPrice(p.getSellingPrice());
 
         ProductPojo product = productService.get(p.getProductId());
         d.setName(product.getName());

@@ -42,6 +42,15 @@ public class ProductApiController {
 		return convert(p);
 	}
 
+
+
+	@ApiOperation(value = "Gets a product by barcode")
+	@RequestMapping(path = "/api/product", params = "barcode", method = RequestMethod.GET)
+	public ProductData getByBarcode(@RequestParam("barcode") String barcode) throws ApiException {
+		ProductPojo p = service.get(barcode);
+		return convert(p);
+	}
+
 	@ApiOperation(value = "Gets list of all products")
 	@RequestMapping(path = "/api/product", method = RequestMethod.GET)
 	public List<ProductData> getAll() throws ApiException {
