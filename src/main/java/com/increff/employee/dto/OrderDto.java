@@ -181,7 +181,7 @@ public class OrderDto {
         List<OrderItemPojo> itemPojos = itemService.getAllByOrderId(p.getId());
         for(OrderItemPojo itemPojo : itemPojos)
         {
-            totalAmount+=itemPojo.getSellingPrice();
+            totalAmount+=itemPojo.getSellingPrice()* itemPojo.getQuantity();
         }
         data.setAmount(totalAmount);
 

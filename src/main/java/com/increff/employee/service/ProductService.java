@@ -18,7 +18,7 @@ public class ProductService {
 	@Autowired
 	private ProductDao dao;
 	@Autowired
-	private InventoryDao inventoryDao;
+	private InventoryService inventoryService;
 
 	//ADDING A BRAND
 	@Transactional(rollbackOn = ApiException.class)
@@ -32,7 +32,7 @@ public class ProductService {
 		InventoryPojo inventoryPojo = new InventoryPojo();
 		inventoryPojo.setQuantity(0);
 		inventoryPojo.setId(p.getId());
-		inventoryDao.insert(inventoryPojo);
+		inventoryService.add(inventoryPojo);
 	}
 
 	//GETTING A BRAND
