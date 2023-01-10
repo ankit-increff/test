@@ -1,49 +1,49 @@
 console.log("Order running");
 
-let orderForm = document.querySelector("#order-form");
-let addItem = document.querySelector("#add-item");
-var index=2;
+// let orderForm = document.querySelector("#order-form");
+// let addItem = document.querySelector("#add-item");
+// var index=2;
 
-addItem.addEventListener("click", (e) => {
-    let newItem = `<div class="form-group">
-                                      <div class="form-group">
-                                          <label for=${"inputBarcode-"+index} class="col-sm-2 col-form-label">Barcode</label>
-                                          <div class="col-sm-10">
-                                              <input type="text" class="form-control input-barcode" name="barcode" id=${"inputBarcode-"+index}
-                                                     placeholder="enter barcode">
-                                          </div>
-                                      </div>
-                                      <div class="form-group">
-                                          <label for=${"inputQuantity-"+index} class="col-sm-2 col-form-label">Quantity</label>
-                                          <div class="col-sm-10">
-                                              <input type="number" class="form-control input-quantity" name="quantity" id=${"inputQuantity-"+index}
-                                                     placeholder="enter quantity">
-                                          </div>
-                                      </div>
-									  <div class="form-group">
-                                          <label for=${"inputPrice-"+index} class="col-sm-2 col-form-label">Price</label>
-                                          <div class="col-sm-10">
-                                              <input type="number" class="form-control input-price" name="sellingPrice" id=${"inputprice-"+index}
-                                                     placeholder="enter price">
-                                          </div>
-                                      </div>
-                                      <button type="button" class="btn btn-warning remove-item" id=${"removeItem-"+index}> - </button>
-                                  </div>`;
+// addItem.addEventListener("click", (e) => {
+//     let newItem = `<div class="form-group">
+//                                       <div class="form-group">
+//                                           <label for=${"inputBarcode-"+index} class="col-sm-2 col-form-label">Barcode</label>
+//                                           <div class="col-sm-10">
+//                                               <input type="text" class="form-control input-barcode" name="barcode" id=${"inputBarcode-"+index}
+//                                                      placeholder="enter barcode">
+//                                           </div>
+//                                       </div>
+//                                       <div class="form-group">
+//                                           <label for=${"inputQuantity-"+index} class="col-sm-2 col-form-label">Quantity</label>
+//                                           <div class="col-sm-10">
+//                                               <input type="number" class="form-control input-quantity" name="quantity" id=${"inputQuantity-"+index}
+//                                                      placeholder="enter quantity">
+//                                           </div>
+//                                       </div>
+// 									  <div class="form-group">
+//                                           <label for=${"inputPrice-"+index} class="col-sm-2 col-form-label">Price</label>
+//                                           <div class="col-sm-10">
+//                                               <input type="number" class="form-control input-price" name="sellingPrice" id=${"inputprice-"+index}
+//                                                      placeholder="enter price">
+//                                           </div>
+//                                       </div>
+//                                       <button type="button" class="btn btn-warning remove-item" id=${"removeItem-"+index}> - </button>
+//                                   </div>`;
 
-    let orderForm = document.querySelector("#order-form");
-    console.log(orderForm.lastEme)
-    orderForm.lastElementChild.insertAdjacentHTML("beforebegin",newItem);
-    index++;
+//     let orderForm = document.querySelector("#order-form");
+//     console.log(orderForm.lastElementChild)
+//     orderForm.lastElementChild.insertAdjacentHTML("afterend",newItem);
+//     index++;
 
-    //removing parameter
-    let removeItem=document.getElementsByClassName("remove-item");
-    console.log(removeItem);
-    for(elem of removeItem){
-        elem.addEventListener("click", (e)=>{
-            e.target.parentElement.remove();
-        })
-    }
-})
+//     //removing parameter
+//     let removeItem=document.getElementsByClassName("remove-item");
+//     console.log(removeItem);
+//     for(elem of removeItem){
+//         elem.addEventListener("click", (e)=>{
+//             e.target.parentElement.remove();
+//         })
+//     }
+// })
 
 
 let globalOrderId = 1;
@@ -72,6 +72,8 @@ function addOrder(event){
        	'Content-Type': 'application/json'
        },	   
 	   success: function(response) {
+			$('#add-order-modal').modal('toggle');
+			$rawForm[0].reset();
 	   		getOrderList();  
 	   },
 	   error: handleAjaxError
@@ -150,8 +152,8 @@ function displayOrderList(data){
 		var e = data[i];
 
 		var newDate = new Date(e.date);
-		var buttonHtml = '<button onclick="displayOrderDetails(' + e.id + ')">Details</button>'
-		buttonHtml += ' <button onclick="displayEditOrder(' + e.id + ')">Edit</button>'
+		var buttonHtml = '<button class="btn btn-outline-info" onclick="displayOrderDetails(' + e.id + ')">Details</button>'
+		buttonHtml += ' <button class="btn btn-outline-warning" onclick="displayEditOrder(' + e.id + ')">Edit</button>'
 		var row = '<tr>'
 		+ '<td>' + e.id + '</td>'
 		+ '<td>' + newDate.toString() + '</td>'
@@ -178,15 +180,13 @@ function displayEditOrder(id){
 }
 
 function editOrderForm(data) {
-	console.log(data);
 	var $orderId = document.querySelector("#order-id-edit")
-	console.log($orderId);
-	$orderId.innerText = `Order Id: ${data[0].orderId}`;
+	$orderId.innerText = ` (Id: ${data[0].orderId})`;
 	var $tbody = $('#order-edit-table').find('tbody');
 	$tbody.empty();
 	for(var i in data){
 		var e = data[i];
-		var buttonHtml = '<button onclick=removeFromModal(event)>Delete</button>'
+		var buttonHtml = '<button class="btn btn-outline-danger" onclick=removeFromModal(event)>Delete</button>'
 		var row = '<tr class="update-row">'
 		+ '<td class="update-barcode">' + e.barcode + '</td>'
 		+ '<td>' + e.name + '</td>'
@@ -224,7 +224,7 @@ function displayInEditTable(e) {
 	let barcode = document.querySelector(".edit-barcode");
 	
 	var $tbody = $('#order-edit-table').find('tbody');
-		var buttonHtml = '<button onclick=removeFromModal(event)>Delete</button>'
+		var buttonHtml = '<button class="btn btn-outline-danger" onclick=removeFromModal(event)>Delete</button>'
 		var row = '<tr class="update-row">'
 		+ '<td class="update-barcode">' + e.barcode + '</td>'
 		+ '<td>' + e.name + '</td>'
@@ -241,9 +241,89 @@ function displayInEditTable(e) {
 
 
 function removeFromModal(e) {
-	console.log(e);
 	e.target.parentElement.parentElement.remove();
 }
+
+
+//_______________________________CREATE NEW ORDER____________________________
+function addInCreateTable() {
+	let barcode = document.querySelector(".add-barcode");
+	var baseUrl = $("meta[name=baseUrl]").attr("content")
+	var productUrl = baseUrl + "/api/product"
+
+	var url = productUrl + "?barcode=" + barcode.value;
+	$.ajax({
+	   url: url,
+	   type: 'GET',
+	   success: function(data) {
+			console.log(data);
+	   		displayInCreateTable(data);
+	   },
+	   error: handleAjaxError
+	});
+}
+
+function displayInCreateTable(e) {
+	let quantity = document.querySelector(".add-quantity");
+	let price = document.querySelector(".add-price");
+	let barcode = document.querySelector(".add-barcode");
+	
+	var $tbody = $('#order-add-table').find('tbody');
+		var buttonHtml = '<button class="btn btn-outline-danger" onclick=removeFromModal(event)>Delete</button>'
+		var row = '<tr class="new-row">'
+		+ '<td class="new-barcode">' + e.barcode + '</td>'
+		+ '<td>' + e.name + '</td>'
+		+ '<td><input type="number" class="form-control w-50 new-quantity" value="'  + quantity.value + '"></td>'
+		+ '<td><input type="number" class="form-control w-50 new-price" value="'  + price.value + '"></td>'
+		+ '<td>' + buttonHtml + '</td>'
+		+ '</tr>';
+     $tbody.append(row);
+
+	 quantity.value = null;
+	 price.value = null;
+	 barcode.value = null;
+}
+
+//____________________________________PLACE NEW ORDER________________________________________
+function CreateNewOrder(e) {
+	console.log("update click registered!");
+	let rows = document.getElementsByClassName("new-row");
+	let req = [];
+	for(let i=0;i<rows.length;i++) {
+		let elem = rows[i];
+		let barcode = elem.querySelector(".new-barcode").innerText;
+		let quantity = elem.querySelector(".new-quantity").value;
+		let price = elem.querySelector(".new-price").value;
+
+		let obj = {
+			barcode,
+			quantity,
+			"sellingPrice": price
+		};
+		req.push(obj);
+	}
+	console.log(req);
+	var json = JSON.stringify(req);
+	var url = getOrderUrl();
+
+	console.log(json);
+
+	$.ajax({
+	   url: url,
+	   type: 'POST',
+	   data: json,
+	   headers: {
+       	'Content-Type': 'application/json'
+       },
+	   success: function(response) {
+			$('#add-order-modal').modal('toggle');
+			$('#order-add-table').find('tbody').empty();
+	   		getOrderList();
+	   },
+	   error: handleAjaxError
+	});
+}
+
 
 //____________________________________SUBMIT UPDATE ORDER________________________________________
 function updateOrder(e) {
@@ -310,7 +390,7 @@ function displayOrder(data){
 	console.log(data);
 	var $orderId = document.querySelector("#order-id")
 	console.log($orderId);
-	$orderId.innerText = `Order Id: ${data[0].orderId}`;
+	$orderId.innerText = ` (Id: ${data[0].orderId})`;
 	var $tbody = $('#order-items-table').find('tbody');
 	$tbody.empty();
 	for(var i in data){
@@ -329,7 +409,7 @@ function displayOrder(data){
 
 //INITIALIZATION CODE
 function init(){
-	$('#add-order').click(addOrder);
+	$('#add-order-confirm').click(CreateNewOrder);
 	$('#refresh-data').click(getOrderList);
 	$('#upload-data').click(displayUploadData);
 	// $('#process-data').click(processData);

@@ -7,9 +7,32 @@ function getBrandUrl(){
 }
 
 //BUTTON ACTIONS
+// function addBrand(event){
+// 	//Set the values to update
+// 	var $form = $("#brand-form");
+// 	var json = toJson($form);
+// 	var url = getBrandUrl();
+
+// 	$.ajax({
+// 	   url: url,
+// 	   type: 'POST',
+// 	   data: json,
+// 	   headers: {
+//        	'Content-Type': 'application/json'
+//        },
+// 	   success: function(response) {
+// 	   		getBrandList();
+// 	   },
+// 	   error: handleAjaxError
+// 	});
+
+// 	return false;
+// }
+
+//BUTTON ACTIONS
 function addBrand(event){
 	//Set the values to update
-	var $form = $("#brand-form");
+	var $form = $("#brand-add-form");
 	var json = toJson($form);
 	var url = getBrandUrl();
 
@@ -21,6 +44,8 @@ function addBrand(event){
        	'Content-Type': 'application/json'
        },
 	   success: function(response) {
+			$('#add-brand-modal').modal('toggle');
+			$form[0].reset();
 	   		getBrandList();
 	   },
 	   error: handleAjaxError
@@ -29,9 +54,12 @@ function addBrand(event){
 	return false;
 }
 
+function createBrand(event){
+	$('#add-brand-modal').modal('toggle');
+}
+
 function updateBrand(event){
 
-    console.log("update running...");
 	$('#edit-brand-modal').modal('toggle');
 	//Get the ID
 	var id = $("#brand-edit-form input[name=id]").val();
@@ -149,8 +177,8 @@ console.log("displaying brand")
 	$tbody.empty();
 	for(var i in data){
 		var e = data[i];
-		var buttonHtml = '<button onclick="deleteBrand(' + e.id + ')">delete</button>'
-		buttonHtml += ' <button onclick="displayEditBrand(' + e.id + ')">edit</button>'
+		// var buttonHtml = '<button onclick="deleteBrand(' + e.id + ')">delete</button>'
+		var buttonHtml = ' <button class="btn btn-outline-warning" onclick="displayEditBrand(' + e.id + ')">Edit</button>'
 		var row = '<tr>'
 		+ '<td>' + e.id + '</td>'
 		+ '<td>' + e.name + '</td>'
@@ -211,10 +239,13 @@ function displayBrand(data){
 }
 
 
+
+
 //INITIALIZATION CODE
 function init(){
-	$('#add-brand').click(addBrand);
+	$('#add-brand-confirm').click(addBrand);
 	$('#update-brand').click(updateBrand);
+	$('#create-brand').click(createBrand);
 	$('#refresh-data').click(getBrandList);
 	$('#upload-data').click(displayUploadData);
 //	$('#process-data').click(processData);

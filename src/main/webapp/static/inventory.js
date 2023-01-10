@@ -21,6 +21,8 @@ function addInventory(event){
        	'Content-Type': 'application/json'
        },
 	   success: function(response) {
+			$('#add-inventory-modal').modal('toggle');
+			$form[0].reset();	
 	   		getInventoryList();
 	   },
 	   error: handleAjaxError
@@ -151,7 +153,7 @@ function displayInventoryList(data){
 	for(var i in data){
 		var e = data[i];
 //		var buttonHtml = '<button onclick="deleteInventory(' + e.id + ')">delete</button>'
-		var buttonHtml = ' <button onclick="displayEditInventory(\'' + e.barcode + '\')">edit</button>'
+		var buttonHtml = ' <button class="btn btn-outline-warning" onclick="displayEditInventory(\'' + e.barcode + '\')">Edit</button>'
 		console.log(e);
 		var row = '<tr>'
 		+ '<td>' + e.barcode + '</td>'
@@ -217,7 +219,7 @@ function displayInventory(data){
 
 //INITIALIZATION CODE
 function init(){
-	$('#add-inventory').click(addInventory);
+	$('#add-inventory-confirm').click(addInventory);
 	$('#update-inventory').click(updateInventory);
 	$('#refresh-data').click(getInventoryList);
 	$('#upload-data').click(displayUploadData);

@@ -17,8 +17,10 @@ function addProduct(event){
 	   data: json,
 	   headers: {
        	'Content-Type': 'application/json'
-       },	   
+       },
 	   success: function(response) {
+			$('#add-product-modal').modal('toggle');
+			$form[0].reset();
 	   		getProductList();
 	   },
 	   error: handleAjaxError
@@ -144,7 +146,7 @@ function displayProductList(data){
 		var e = data[i];
 //		console.log(e);
 //		var buttonHtml = '<button onclick="deleteProduct(' + e.id + ')">delete</button>'
-		var buttonHtml = ' <button onclick="displayEditProduct(' + e.id + ')">edit</button>'
+		var buttonHtml = ' <button class="btn btn-outline-warning" onclick="displayEditProduct(' + e.id + ')">Edit</button>'
 		var row = '<tr>'
 		+ '<td>' + e.id + '</td>'
 		+ '<td>' + e.name + '</td>'
@@ -215,7 +217,7 @@ function displayProduct(data){
 
 //INITIALIZATION CODE
 function init(){
-	$('#add-product').click(addProduct);
+	$('#add-product-confirm').click(addProduct);
 	$('#update-product').click(updateProduct);
 	$('#refresh-data').click(getProductList);
 	$('#upload-data').click(displayUploadData);
