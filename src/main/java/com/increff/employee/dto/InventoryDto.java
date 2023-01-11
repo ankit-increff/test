@@ -2,20 +2,14 @@ package com.increff.employee.dto;
 
 import com.increff.employee.model.InventoryData;
 import com.increff.employee.model.InventoryForm;
-import com.increff.employee.model.ProductData;
-import com.increff.employee.model.ProductForm;
-import com.increff.employee.pojo.BrandPojo;
 import com.increff.employee.pojo.InventoryPojo;
 import com.increff.employee.pojo.ProductPojo;
 import com.increff.employee.service.ApiException;
-import com.increff.employee.service.BrandService;
+
 import com.increff.employee.service.InventoryService;
 import com.increff.employee.service.ProductService;
-import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-import org.springframework.web.bind.annotation.*;
 
 import javax.transaction.Transactional;
 import java.util.ArrayList;

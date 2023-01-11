@@ -1,5 +1,6 @@
 package com.increff.employee.controller;
 
+import com.increff.employee.dto.BrandDto;
 import com.increff.employee.model.BrandData;
 import com.increff.employee.model.BrandForm;
 import com.increff.employee.pojo.BrandPojo;
@@ -18,13 +19,13 @@ import java.util.List;
 public class BrandApiController {
 
 	@Autowired
-	private BrandService service;
+	private BrandDto dto;
 
 	@ApiOperation(value = "Adds a brand")
 	@RequestMapping(path = "/api/brand", method = RequestMethod.POST)
 	public void add(@RequestBody BrandForm form) throws ApiException {
 		BrandPojo p = convert(form);
-		service.add(p);
+		dto.add(p);
 	}
 
 	
@@ -32,20 +33,20 @@ public class BrandApiController {
 	@RequestMapping(path = "/api/brand/{id}", method = RequestMethod.DELETE)
 	// /api/1
 	public void delete(@PathVariable int id) {
-		service.delete(id);
+		dto.delete(id);
 	}
 
 	@ApiOperation(value = "Gets a brand by ID")
 	@RequestMapping(path = "/api/brand/{id}", method = RequestMethod.GET)
 	public BrandData get(@PathVariable int id) throws ApiException {
-		BrandPojo p = service.get(id);
+		BrandPojo p = dto.get(id);
 		return convert(p);
 	}
 
 	@ApiOperation(value = "Gets list of all brands")
 	@RequestMapping(path = "/api/brand", method = RequestMethod.GET)
 	public List<BrandData> getAll() {
-		List<BrandPojo> list = service.getAll();
+		List<BrandPojo> list = dto.getAll();
 		List<BrandData> list2 = new ArrayList<BrandData>();
 		for (BrandPojo p : list) {
 			list2.add(convert(p));
@@ -57,7 +58,7 @@ public class BrandApiController {
 	@RequestMapping(path = "/api/brand/{id}", method = RequestMethod.PUT)
 	public void update(@PathVariable int id, @RequestBody BrandForm f) throws ApiException {
 		BrandPojo p = convert(f);
-		service.update(id, p);
+		dto.update(id, p);
 	}
 	
 

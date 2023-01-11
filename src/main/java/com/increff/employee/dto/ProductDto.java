@@ -5,7 +5,6 @@ import com.increff.employee.model.ProductForm;
 import com.increff.employee.pojo.BrandPojo;
 import com.increff.employee.pojo.ProductPojo;
 import com.increff.employee.service.ApiException;
-import com.increff.employee.service.BrandService;
 import com.increff.employee.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -20,7 +19,7 @@ public class ProductDto {
     @Autowired
     private ProductService service;
     @Autowired
-    private BrandService brandService;
+    private BrandDto brandDto;
 
 
     @Transactional(rollbackOn = ApiException.class)
@@ -65,7 +64,7 @@ public class ProductDto {
         d.setBarcode(p.getBarcode());
         d.setMrp(Double.toString(p.getMrp()));
 
-        BrandPojo brand = brandService.get(p.getBrandId());
+        BrandPojo brand = brandDto.get(p.getBrandId());
         d.setBrand(brand.getName());
         d.setCategory(brand.getCategory());
 //		System.out.println(d.getMrp());
@@ -79,7 +78,7 @@ public class ProductDto {
         p.setName(f.getName());
         p.setBarcode(f.getBarcode());
         p.setMrp(Double.parseDouble(f.getMrp()));
-        BrandPojo bp = brandService.get(f.getBrand(), f.getCategory());
+        BrandPojo bp = brandDto.get(f.getBrand(), f.getCategory());
 
         p.setBrandId(bp.getId());
         return p;
