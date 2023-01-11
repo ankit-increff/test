@@ -1,12 +1,9 @@
 package com.increff.employee.dto;
 
-import com.increff.employee.model.InventoryData;
-import com.increff.employee.model.InventoryForm;
+import com.increff.employee.model.BrandForm;
 import com.increff.employee.model.InventoryReportData;
-import com.increff.employee.model.OrderForm;
 import com.increff.employee.pojo.BrandPojo;
 import com.increff.employee.pojo.InventoryPojo;
-import com.increff.employee.pojo.ProductPojo;
 import com.increff.employee.service.ApiException;
 import com.increff.employee.service.BrandService;
 import com.increff.employee.service.InventoryService;
@@ -21,7 +18,7 @@ import java.util.List;
 import java.util.Map;
 
 @Component
-public class InventoryReportDto {
+public class ReportDto {
 
     @Autowired
     private InventoryService inventoryService;
@@ -32,7 +29,7 @@ public class InventoryReportDto {
 
 
     @Transactional(rollbackOn = ApiException.class)
-    public List<InventoryReportData> getAll() throws ApiException {
+    public List<InventoryReportData> getAllInventories() throws ApiException {
         List<BrandPojo> allBrands = brandService.getAll();
         Map<Integer, Integer> map = new HashMap<>();
 
@@ -59,6 +56,21 @@ public class InventoryReportDto {
         }
 
         return report;
+    }
+
+    @Transactional(rollbackOn = ApiException.class)
+    public List<BrandForm> getAllBrands() throws ApiException {
+        List<BrandForm> report = new ArrayList<>();
+
+        List<BrandPojo> allBrands = brandService.getAll();
+        for(BrandPojo p : allBrands) {
+            BrandForm form = new BrandForm();
+            form.setCategory(p.getCategory());
+            form.setName(p.getName());
+            report.add(form);
+        }
+        return report;
+
     }
 
 

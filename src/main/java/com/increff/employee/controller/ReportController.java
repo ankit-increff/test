@@ -1,9 +1,7 @@
 package com.increff.employee.controller;
 
-import com.increff.employee.dto.InventoryDto;
-import com.increff.employee.dto.InventoryReportDto;
-import com.increff.employee.model.InventoryData;
-import com.increff.employee.model.InventoryForm;
+import com.increff.employee.dto.ReportDto;
+import com.increff.employee.model.BrandForm;
 import com.increff.employee.model.InventoryReportData;
 import com.increff.employee.service.ApiException;
 import io.swagger.annotations.Api;
@@ -15,16 +13,22 @@ import java.util.List;
 
 @Api
 @RestController
-public class InventoryReportController {
+public class ReportController {
 
 	@Autowired
-	private InventoryReportDto dto;
+	private ReportDto dto;
 
 
 	@ApiOperation(value = "Gets list of all inventories")
 	@RequestMapping(path = "/api/reports/inventory", method = RequestMethod.GET)
-	public List<InventoryReportData> getAll() throws ApiException {
-		return dto.getAll();
+	public List<InventoryReportData> getAllinventory() throws ApiException {
+		return dto.getAllInventories();
+	}
+
+	@ApiOperation(value = "Gets list of all brand-categories")
+	@RequestMapping(path = "/api/reports/brand-category", method = RequestMethod.GET)
+	public List<BrandForm> getAllBrands() throws ApiException {
+		return dto.getAllBrands();
 	}
 
 
