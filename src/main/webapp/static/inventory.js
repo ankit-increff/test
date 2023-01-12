@@ -150,12 +150,14 @@ function deleteInventory(id){
 function displayInventoryList(data){
 	var $tbody = $('#inventory-table').find('tbody');
 	$tbody.empty();
+	let index = 1;
 	for(var i in data){
 		var e = data[i];
 //		var buttonHtml = '<button onclick="deleteInventory(' + e.id + ')">delete</button>'
 		var buttonHtml = ' <button class="btn btn-outline-warning" onclick="displayEditInventory(\'' + e.barcode + '\')">Edit</button>'
 		console.log(e);
 		var row = '<tr>'
+		+ '<td>' + index++ + '</td>'
 		+ '<td>' + e.barcode + '</td>'
 		+ '<td>' + e.name + '</td>'
 		+ '<td>'  + e.quantity + '</td>'

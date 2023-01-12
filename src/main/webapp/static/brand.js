@@ -173,6 +173,7 @@ function deleteBrand(id){
 
 function displayBrandList(data){
 console.log("displaying brand")
+	let index=1;
 	var $tbody = $('#brand-table').find('tbody');
 	$tbody.empty();
 	for(var i in data){
@@ -180,7 +181,7 @@ console.log("displaying brand")
 		// var buttonHtml = '<button onclick="deleteBrand(' + e.id + ')">delete</button>'
 		var buttonHtml = ' <button class="btn btn-outline-warning" onclick="displayEditBrand(' + e.id + ')">Edit</button>'
 		var row = '<tr>'
-		+ '<td>' + e.id + '</td>'
+		+ '<td>' + index++ + '</td>'
 		+ '<td>' + e.name + '</td>'
 		+ '<td>'  + e.category + '</td>'
 		+ '<td>' + buttonHtml + '</td>'

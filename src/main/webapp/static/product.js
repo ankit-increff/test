@@ -141,6 +141,7 @@ function downloadErrors(){
 function displayProductList(data){
 	var $tbody = $('#product-table').find('tbody');
 	$tbody.empty();
+	let index = 1;
 
 	for(var i in data){
 		var e = data[i];
@@ -148,7 +149,7 @@ function displayProductList(data){
 //		var buttonHtml = '<button onclick="deleteProduct(' + e.id + ')">delete</button>'
 		var buttonHtml = ' <button class="btn btn-outline-warning" onclick="displayEditProduct(' + e.id + ')">Edit</button>'
 		var row = '<tr>'
-		+ '<td>' + e.id + '</td>'
+		+ '<td>' + index++ + '</td>'
 		+ '<td>' + e.name + '</td>'
 		+ '<td>'  + e.barcode + '</td>'
 		+ '<td>'  + e.brand + '</td>'

@@ -90,10 +90,11 @@ public class ReportDto {
             form.setEndDate(end);
         }
 
+        if(form.getStartDate().compareTo(form.getEndDate())>0) {
+            throw new ApiException("Start date should be before end date!!");
+        }
         form.setStartDate(getStartOfDay(form.getStartDate(),Calendar.getInstance()));
         form.setEndDate(getEndOfDay(form.getEndDate(),Calendar.getInstance()));
-        System.out.println(form.getStartDate());
-        System.out.println(form.getEndDate());
 
         String brand = form.getBrand();
         String category = form.getCategory();
