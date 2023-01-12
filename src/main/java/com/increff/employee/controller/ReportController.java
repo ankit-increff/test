@@ -1,8 +1,7 @@
 package com.increff.employee.controller;
 
 import com.increff.employee.dto.ReportDto;
-import com.increff.employee.model.BrandForm;
-import com.increff.employee.model.InventoryReportData;
+import com.increff.employee.model.*;
 import com.increff.employee.service.ApiException;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -31,5 +30,10 @@ public class ReportController {
 		return dto.getAllBrands();
 	}
 
+	@ApiOperation(value = "Gets list of all sales")
+	@RequestMapping(path = "/api/reports/sales", method = RequestMethod.POST)
+	public List<SalesReportData> getSales(@RequestBody SalesReportForm form) throws ApiException {
+		return dto.getSales(form);
+	}
 
 }

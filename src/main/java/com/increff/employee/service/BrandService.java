@@ -7,7 +7,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 @Service
 public class BrandService {
@@ -37,6 +39,24 @@ public class BrandService {
 	@Transactional(rollbackOn = ApiException.class)
 	public BrandPojo get(String name, String category) throws ApiException {
 		return dao.select(name, category);
+
+	}
+
+	@Transactional(rollbackOn = ApiException.class)
+	public List<BrandPojo> getByNameCategory(String name, String category) throws ApiException {
+		if(Objects.equals(name, "") && Objects.equals(category, "")) {
+			return dao.selectAll();
+		}
+		if(Objects.equals(name, "")) {
+			return dao.selectByCategory(category);
+		}
+		if(Objects.equals(category, "")) {
+			return dao.selectByName(name);
+		}
+
+		List<BrandPojo> brands = new ArrayList<>();
+		brands.add(dao.select(name, category));
+		return brands;
 
 	}
 

@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
+import java.util.Date;
 import java.util.List;
 
 @Service
@@ -35,6 +36,11 @@ public class OrderService {
 	@Transactional
 	public OrderPojo get(int orderId) {
 		return orderDao.select(orderId);
+	}
+
+	@Transactional
+	public List<OrderPojo> getAllInTimeDuration(Date start, Date end) {
+		return orderDao.selectAllInTimeDuration(start, end);
 	}
 
 }
