@@ -74,6 +74,10 @@ public class ProductDto {
 
     //	@Transactional(rollbackOn = ApiException.class)
     private ProductPojo convert(ProductForm f) throws ApiException {
+        if(Double.parseDouble(f.getMrp()) < 0) {
+            throw new ApiException("MRP can't be negative!!");
+        }
+
         ProductPojo p = new ProductPojo();
         p.setName(f.getName());
         p.setBarcode(f.getBarcode());

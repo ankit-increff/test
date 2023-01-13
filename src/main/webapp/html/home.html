@@ -13,20 +13,61 @@
 <h3>Home</h3>
 
  <!-- Top row with form-->
-<div class="row">
-	 <div class="col-2">
-	 	<a th:href="@{/ui/employee}" title="Employees"> <i class="fas fa-users"></i> </a>
-	 </div>	
-	 <div class="col-2">
-	 	<a th:href="@{/ui/admin}" title="Admin"> <i class="fas fa-cog"></i> </a>
-	 </div>	
-</div> 
+
+<div class="row justify-content-around home-logo">
+	<a th:href="@{/ui/brand}" title="Brands">
+	 <div class="col">
+		<img th:src="@{/static/images/brand-image.png}" alt="Brands" />
+		<h4>Brands</h4>
+	 </div>
+	</a>
+	<a th:href="@{/ui/product}" title="Products">
+	   <div class="col">
+		   <img th:src="@{/static/images/package.png}" alt="Products" />
+		  <h4>Products</h4>
+	   </div>
+	</a>
+	<a th:href="@{/ui/inventory}" title="Inventory">
+	   <div class="col">
+		   <img th:src="@{/static/images/inventory-management.png}" alt="Inventory" />
+		  <h4>Inventory</h4>
+	   </div>
+	</a>
+ </div>
+ 
+	<br><br><br><br>
+ <div class="row justify-content-around home-logo">
+	<a th:href="@{/ui/order}" title="Inventory">
+	   <div class="col">
+		   <img th:src="@{/static/images/order.png}" alt="Orders" />
+		  <h4>Orders</h4>
+	   </div>
+	</a>
+	<a th:href="@{/ui/reports}" title="Reports">
+	   <div class="col">
+		   <img th:src="@{/static/images/report.png}" alt="Reports" />
+		  <h4>Reports</h4>
+	   </div>
+	</a>
+	<a th:href="@{/ui/admin}" title="Admin">
+	   <div class="col">
+		   <img th:src="@{/static/images/admin.png}" alt="Admin" />
+		  <h4>Admin</h4>
+	   </div>
+	</a>
+ </div>
 
 
 
 </div> <!-- Container end-->
 
 <footer th:replace="snippets.html :: name_footer"></footer>
+
+<script>
+
+let element = document.querySelector("#home-link");
+	element.classList.add("active");
+</script>
 
 
 </body>	

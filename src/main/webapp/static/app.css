@@ -5,6 +5,7 @@ html {
 
 body {
 	margin-bottom: 60px; /* Margin bottom by footer height */
+	font-family: 'Signika Negative', sans-serif;
 }
 
 .footer {
@@ -20,4 +21,28 @@ body {
 
 .fas{
     font-size: 4rem;
+}
+
+th, td {
+    text-align: center;
+}
+
+.table td, .table th {
+    padding: 0.7rem;
+    vertical-align: middle;
+}
+
+.home-logo div{
+	text-align: center;
+}
+
+a:hover {
+	background-color: #0085f230;
+    color: #0069c2;
+    text-decoration: none;
+	border-radius: 0.7rem;
+  }
+  
+.btn:hover {
+	transform: scale(1.1);
 }

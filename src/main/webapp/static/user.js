@@ -76,6 +76,9 @@ function displayUserList(data){
 function init(){
 	$('#add-user').click(addUser);
 	$('#refresh-data').click(getUserList);
+
+	let element = document.querySelector("#admin-link");
+	element.classList.add("active");
 }
 
 $(document).ready(init);

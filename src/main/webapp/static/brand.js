@@ -179,7 +179,7 @@ console.log("displaying brand")
 	for(var i in data){
 		var e = data[i];
 		// var buttonHtml = '<button onclick="deleteBrand(' + e.id + ')">delete</button>'
-		var buttonHtml = ' <button class="btn btn-outline-warning" onclick="displayEditBrand(' + e.id + ')">Edit</button>'
+		var buttonHtml = ' <button class="btn shadow btn-outline-warning" onclick="displayEditBrand(' + e.id + ')">Edit</button>'
 		var row = '<tr>'
 		+ '<td>' + index++ + '</td>'
 		+ '<td>' + e.name + '</td>'
@@ -252,6 +252,9 @@ function init(){
 //	$('#process-data').click(processData);
 //	$('#download-errors').click(downloadErrors);
 //    $('#employeeFile').on('change', updateFileName)
+
+	let element = document.querySelector("#brand-link");
+	element.classList.add("active");
 }
 
 $(document).ready(init);

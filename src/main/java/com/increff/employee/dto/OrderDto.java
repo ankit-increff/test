@@ -31,6 +31,7 @@ public class OrderDto {
         for(OrderForm f:forms)
         {
             checkInventory(f);
+            checkValidity(f);
         }
 
 
@@ -92,6 +93,7 @@ public class OrderDto {
         for(OrderForm f:newForms)
         {
             checkQuantity(oldItems, f);
+            checkValidity(f);
         }
         System.out.println("running");
 
@@ -123,7 +125,7 @@ public class OrderDto {
             OrderForm f = orderFormMap.get(itemPojo.getProductId());
             if(f != null) {
                 itemPojo.setQuantity(f.getQuantity());
-                itemPojo.setSellingPrice(f.getSellingPrice());
+                itemPojo.setSellingPrice(Double.parseDouble(f.getSellingPrice()));
                 orderFormMap.remove(itemPojo.getProductId());
             }
             else {
@@ -167,7 +169,7 @@ public class OrderDto {
 
         ProductPojo product = productService.get(form.getBarcode());
         p.setQuantity(form.getQuantity());
-        p.setSellingPrice(form.getSellingPrice());
+        p.setSellingPrice(Double.parseDouble(form.getSellingPrice()));
         p.setProductId(product.getId());
         return p;
     }
@@ -194,6 +196,15 @@ public class OrderDto {
         InventoryPojo p = inventoryService.get(id);
         int mx = p.getQuantity();
         if(f.getQuantity() > mx) throw new ApiException("Inventory contains only "+mx+" items of product with barcode "+f.getBarcode());
+    }
+
+    private void checkValidity(OrderForm f) throws ApiException {
+        if(f.getQuantity()<0) {
+            throw new ApiException("Invalid quantity!!");
+        }
+        if(Double.parseDouble(f.getSellingPrice())<0) {
+            throw new ApiException("Invalid selling price!!");
+        }
     }
 
     @Transactional(rollbackOn = ApiException.class)

@@ -27,7 +27,7 @@ console.log("Order running");
 //                                                      placeholder="enter price">
 //                                           </div>
 //                                       </div>
-//                                       <button type="button" class="btn btn-warning remove-item" id=${"removeItem-"+index}> - </button>
+//                                       <button type="button" class="btn shadow btn-warning remove-item" id=${"removeItem-"+index}> - </button>
 //                                   </div>`;
 
 //     let orderForm = document.querySelector("#order-form");
@@ -152,12 +152,12 @@ function displayOrderList(data){
 		var e = data[i];
 
 		var newDate = new Date(e.date);
-		var buttonHtml = '<button class="btn btn-outline-info" onclick="displayOrderDetails(' + e.id + ')">Details</button>'
-		buttonHtml += ' <button class="btn btn-outline-warning" onclick="displayEditOrder(' + e.id + ')">Edit</button>'
+		var buttonHtml = '<button class="btn shadow btn-outline-info" onclick="displayOrderDetails(' + e.id + ')">Details</button>'
+		buttonHtml += ' <button class="btn shadow btn-outline-warning" onclick="displayEditOrder(' + e.id + ')">Edit</button>'
 		var row = '<tr>'
 		+ '<td>' + e.id + '</td>'
 		+ '<td>' + newDate.toString() + '</td>'
-		+ '<td>'  + e.amount + '</td>'
+		+ '<td>'  + parseFloat(e.amount).toFixed(2) + '</td>'
 		+ '<td>' + buttonHtml + '</td>'
 		+ '</tr>';
         $tbody.append(row);
@@ -186,12 +186,12 @@ function editOrderForm(data) {
 	$tbody.empty();
 	for(var i in data){
 		var e = data[i];
-		var buttonHtml = '<button class="btn btn-outline-danger" onclick=removeFromModal(event)>Delete</button>'
+		var buttonHtml = '<button class="btn shadow btn-outline-danger" onclick=removeFromModal(event)>Delete</button>'
 		var row = '<tr class="update-row">'
 		+ '<td class="update-barcode">' + e.barcode + '</td>'
 		+ '<td>' + e.name + '</td>'
 		+ '<td><input type="number" class="form-control w-50 update-quantity" value="'  + e.quantity + '"></td>'
-		+ '<td><input type="number" class="form-control w-50 update-price" value="'  + e.sellingPrice + '"></td>'
+		+ '<td><input type="number" class="form-control w-50 update-price" value="'  + parseFloat(e.sellingPrice).toFixed(2) + '"></td>'
 		+ '<td>' + buttonHtml + '</td>'
 		+ '</tr>';
         $tbody.append(row);
@@ -224,12 +224,12 @@ function displayInEditTable(e) {
 	let barcode = document.querySelector(".edit-barcode");
 	
 	var $tbody = $('#order-edit-table').find('tbody');
-		var buttonHtml = '<button class="btn btn-outline-danger" onclick=removeFromModal(event)>Delete</button>'
+		var buttonHtml = '<button class="btn shadow btn-outline-danger" onclick=removeFromModal(event)>Delete</button>'
 		var row = '<tr class="update-row">'
 		+ '<td class="update-barcode">' + e.barcode + '</td>'
 		+ '<td>' + e.name + '</td>'
 		+ '<td><input type="number" class="form-control w-50 update-quantity" value="'  + quantity.value + '"></td>'
-		+ '<td><input type="number" class="form-control w-50 update-price" value="'  + price.value + '"></td>'
+		+ '<td><input type="number" class="form-control w-50 update-price" value="'  + parseFloat(price.value).toFixed(2) + '"></td>'
 		+ '<td>' + buttonHtml + '</td>'
 		+ '</tr>';
      $tbody.append(row);
@@ -269,12 +269,12 @@ function displayInCreateTable(e) {
 	let barcode = document.querySelector(".add-barcode");
 	
 	var $tbody = $('#order-add-table').find('tbody');
-		var buttonHtml = '<button class="btn btn-outline-danger" onclick=removeFromModal(event)>Delete</button>'
+		var buttonHtml = '<button class="btn shadow btn-outline-danger" onclick=removeFromModal(event)>Delete</button>'
 		var row = '<tr class="new-row">'
 		+ '<td class="new-barcode">' + e.barcode + '</td>'
 		+ '<td>' + e.name + '</td>'
 		+ '<td><input type="number" class="form-control w-50 new-quantity" value="'  + quantity.value + '"></td>'
-		+ '<td><input type="number" class="form-control w-50 new-price" value="'  + price.value + '"></td>'
+		+ '<td><input type="number" class="form-control w-50 new-price" value="'  + parseFloat(price.value).toFixed(2) + '"></td>'
 		+ '<td>' + buttonHtml + '</td>'
 		+ '</tr>';
      $tbody.append(row);
@@ -399,7 +399,7 @@ function displayOrder(data){
 		+ '<td>' + e.barcode + '</td>'
 		+ '<td>' + e.name + '</td>'
 		+ '<td>'  + e.quantity + '</td>'
-		+ '<td>'  + e.sellingPrice + '</td>'
+		+ '<td>'  + parseFloat(e.sellingPrice).toFixed(2) + '</td>'
 		+ '</tr>';
         $tbody.append(row);
 	}	
@@ -415,6 +415,8 @@ function init(){
 	// $('#process-data').click(processData);
 	// $('#download-errors').click(downloadErrors);
     // $('#orderFile').on('change', updateFileName)
+	let element = document.querySelector("#order-link");
+	element.classList.add("active");
 }
 
 $(document).ready(init);

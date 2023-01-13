@@ -30,7 +30,7 @@ function addProduct(event){
 }
 
 function updateProduct(event){
-	$('#edit-product-modal').modal('toggle');
+	
 	//Get the ID
 	var id = $("#product-edit-form input[name=id]").val();
 	var url = getProductUrl() + "/" + id;
@@ -48,6 +48,7 @@ function updateProduct(event){
        },	   
 	   success: function(response) {
 	   		getProductList();
+			$('#edit-product-modal').modal('toggle');
 	   },
 	   error: handleAjaxError
 	});
@@ -147,14 +148,14 @@ function displayProductList(data){
 		var e = data[i];
 //		console.log(e);
 //		var buttonHtml = '<button onclick="deleteProduct(' + e.id + ')">delete</button>'
-		var buttonHtml = ' <button class="btn btn-outline-warning" onclick="displayEditProduct(' + e.id + ')">Edit</button>'
+		var buttonHtml = ' <button class="btn shadow btn-outline-warning" onclick="displayEditProduct(' + e.id + ')">Edit</button>'
 		var row = '<tr>'
 		+ '<td>' + index++ + '</td>'
 		+ '<td>' + e.name + '</td>'
 		+ '<td>'  + e.barcode + '</td>'
 		+ '<td>'  + e.brand + '</td>'
 		+ '<td>'  + e.category + '</td>'
-		+ '<td>'  + e.mrp + '</td>'
+		+ '<td>'  + parseFloat(e.mrp).toFixed(2) + '</td>'
 		+ '<td>' + buttonHtml + '</td>'
 		+ '</tr>';
         $tbody.append(row);
@@ -211,7 +212,7 @@ function displayProduct(data){
 	$("#product-edit-form input[name=id]").val(data.id);
 	$("#product-edit-form input[name=brand]").val(data.brand);
 	$("#product-edit-form input[name=category]").val(data.category);
-	$("#product-edit-form input[name=mrp]").val(data.mrp);
+	$("#product-edit-form input[name=mrp]").val(parseFloat(data.mrp).toFixed(2));
 	$('#edit-product-modal').modal('toggle');
 }
 
@@ -225,6 +226,8 @@ function init(){
 //	$('#process-data').click(processData);
 //	$('#download-errors').click(downloadErrors);
 //    $('#productFile').on('change', updateFileName)
+	let element = document.querySelector("#product-link");
+	element.classList.add("active");
 }
 
 $(document).ready(init);

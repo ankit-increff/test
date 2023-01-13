@@ -32,15 +32,8 @@ function addInventory(event){
 }
 
 function updateInventory(event){
-
-    console.log("update running...");
-	$('#edit-inventory-modal').modal('toggle');
-	//Get the ID
 	var barcode = $("#inventory-edit-form input[name=barcode]").val();
-//	console.log(barcode)
 	var url = getInventoryUrl() + "/" + barcode;
-//	console.log(url);
-
 
 	//Set the values to update
 	var $form = $("#inventory-edit-form");
@@ -55,6 +48,7 @@ function updateInventory(event){
        },
 	   success: function(response) {
 	   		getInventoryList();
+			$('#edit-inventory-modal').modal('toggle');
 	   },
 	   error: handleAjaxError
 	});
@@ -154,13 +148,13 @@ function displayInventoryList(data){
 	for(var i in data){
 		var e = data[i];
 //		var buttonHtml = '<button onclick="deleteInventory(' + e.id + ')">delete</button>'
-		var buttonHtml = ' <button class="btn btn-outline-warning" onclick="displayEditInventory(\'' + e.barcode + '\')">Edit</button>'
+		var buttonHtml = ' <button class="btn shadow btn-outline-warning" onclick="displayEditInventory(\'' + e.barcode + '\')">Edit</button>'
 		console.log(e);
 		var row = '<tr>'
 		+ '<td>' + index++ + '</td>'
 		+ '<td>' + e.barcode + '</td>'
 		+ '<td>' + e.name + '</td>'
-		+ '<td>'  + e.quantity + '</td>'
+		+ '<td>' + e.quantity + '</td>'
 		+ '<td>' + buttonHtml + '</td>'
 		+ '</tr>';
         $tbody.append(row);
@@ -174,7 +168,6 @@ function displayEditInventory(barcode){
 	   url: url,
 	   type: 'GET',
 	   success: function(data) {
-	        console.log(data)
 	   		displayInventory(data);
 	   },
 	   error: handleAjaxError
@@ -228,6 +221,8 @@ function init(){
 //	$('#process-data').click(processData);
 //	$('#download-errors').click(downloadErrors);
 //    $('#employeeFile').on('change', updateFileName)
+	let element = document.querySelector("#inventory-link");
+	element.classList.add("active");
 }
 
 $(document).ready(init);
