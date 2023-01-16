@@ -1,12 +1,10 @@
 package com.increff.employee.dto;
 
 import com.increff.employee.model.*;
-import com.increff.employee.pojo.BrandPojo;
-import com.increff.employee.pojo.InventoryPojo;
-import com.increff.employee.pojo.OrderItemPojo;
-import com.increff.employee.pojo.OrderPojo;
+import com.increff.employee.pojo.*;
 import com.increff.employee.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
 import javax.transaction.Transactional;
@@ -25,6 +23,8 @@ public class ReportDto {
     private OrderService orderService;
     @Autowired
     private OrderItemService orderItemService;
+    @Autowired
+    private DailySalesService dailySalesService;
 
 
     @Transactional(rollbackOn = ApiException.class)
@@ -160,6 +160,44 @@ public class ReportDto {
         return report;
 
     }
+
+    @Transactional(rollbackOn = ApiException.class)
+    public List<DailySalesPojo> getDailySales() throws ApiException {
+        return dailySalesService.getAll();
+    }
+
+    @Scheduled(cron = "0 0 0 * * ?")
+    @Transactional(rollbackOn = ApiException.class)
+    public void saveDailySales() throws ApiException {
+        DailySalesPojo p = new DailySalesPojo();
+        Date today = new Date();
+        Date start = getStartOfDay(today,Calendar.getInstance());
+        Date end = getEndOfDay(today, Calendar.getInstance());
+        List<OrderPojo> orders = orderService.getAllInTimeDuration(start, end);
+        p.setOrders(orders.size());
+        p.setDate(today);
+
+        double totalRevenue = 0;
+        int totalItems = 0;
+        for(OrderPojo order:orders) {
+            List<OrderItemPojo> items = orderItemService.getAllByOrderId(order.getId());
+            totalItems+=items.size();
+            for(OrderItemPojo item:items) {
+                totalRevenue += item.getSellingPrice()*item.getQuantity();
+            }
+        }
+        p.setItems(totalItems);
+        p.setRevenue(totalRevenue);
+
+        System.out.println(p.getRevenue());
+        System.out.println(totalRevenue);
+        System.out.println(p.getItems());
+        System.out.println(totalItems);
+
+        dailySalesService.add(p);
+    }
+
+
 
     public static Date getStartOfDay(Date day,Calendar cal) {
         if (day == null) day = new Date();

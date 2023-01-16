@@ -62,6 +62,11 @@ public class AppUiController extends AbstractUiController {
 		return mav("salesReport.html");
 	}
 
+	@RequestMapping(value = "/ui/reports/daily-report")
+	public ModelAndView dailyReport() {
+		return mav("dailyReport.html");
+	}
+
 
 
 }

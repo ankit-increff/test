@@ -2,6 +2,7 @@ package com.increff.employee.controller;
 
 import com.increff.employee.dto.ReportDto;
 import com.increff.employee.model.*;
+import com.increff.employee.pojo.DailySalesPojo;
 import com.increff.employee.service.ApiException;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -35,5 +36,13 @@ public class ReportController {
 	public List<SalesReportData> getSales(@RequestBody SalesReportForm form) throws ApiException {
 		return dto.getSales(form);
 	}
+
+	@ApiOperation(value = "Gets list of daily sales report")
+	@RequestMapping(path = "/api/reports/daily-report", method = RequestMethod.GET)
+	public List<DailySalesPojo> getDailySales() throws ApiException {
+		return dto.getDailySales();
+	}
+
+
 
 }
