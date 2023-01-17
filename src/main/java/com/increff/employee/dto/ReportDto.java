@@ -189,11 +189,6 @@ public class ReportDto {
         p.setItems(totalItems);
         p.setRevenue(totalRevenue);
 
-        System.out.println(p.getRevenue());
-        System.out.println(totalRevenue);
-        System.out.println(p.getItems());
-        System.out.println(totalItems);
-
         dailySalesService.add(p);
     }
 
