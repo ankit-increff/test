@@ -154,6 +154,7 @@ function displayOrderList(data){
 		var newDate = new Date(e.date);
 		var buttonHtml = '<button class="btn shadow btn-outline-info" onclick="displayOrderDetails(' + e.id + ')">Details</button>'
 		buttonHtml += ' <button class="btn shadow btn-outline-warning" onclick="displayEditOrder(' + e.id + ')">Edit</button>'
+		buttonHtml += ' <button class="btn shadow btn-outline-warning" onclick="generateInvoice(' + e.id + ')">Invoice</button>'
 		var row = '<tr>'
 		+ '<td>' + e.id + '</td>'
 		+ '<td>' + newDate.toString() + '</td>'
@@ -405,6 +406,57 @@ function displayOrder(data){
 	}	
 	$('#order-items-modal').modal('toggle');
 }
+
+
+
+function downloadBillPdf(blob){
+	let link = document.createElement('a');
+	link.href = window.URL.createObjectURL(blob);
+	var currentdate = new Date();
+	link.download = "bill_"+ currentdate.getDate() + "/"
+	+ (currentdate.getMonth()+1)  + "/" 
+	+ currentdate.getFullYear() + "@"  
+	+ currentdate.getHours() + "h_"  
+	+ currentdate.getMinutes() + "m_" 
+	+ currentdate.getSeconds()+"s.pdf";
+	link.click();
+}
+
+function generateInvoice(id){
+	console.log(id);
+	var url = getOrderUrl() + "/invoice/" + id;
+	console.log(url);
+	$.ajax({
+		   url: url,
+		   type: 'GET',
+		   success: function(data) {
+			console.log(data);
+				 // process recieved pdf
+				 let binaryString = window.atob(data);
+
+				 let binaryLen = binaryString.length;
+
+				 let bytes = new Uint8Array(binaryLen);
+
+				 for (let i = 0; i < binaryLen; i++) {
+					 let ascii = binaryString.charCodeAt(i);
+					 bytes[i] = ascii;
+				 }
+				 let blob = new Blob([bytes], {type: "application/pdf"});
+			  downloadBillPdf(blob);
+			  getOrderList();
+		},
+			error: handleAjaxError
+		});
+}
+
+
+
+
+
+
+
+
 
 
 //INITIALIZATION CODE

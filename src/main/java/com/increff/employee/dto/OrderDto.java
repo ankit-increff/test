@@ -79,6 +79,24 @@ public class OrderDto {
         }
         return itemData;
     }
+    @Transactional(rollbackOn = ApiException.class)
+    public List<BillData> generateInvoice(int orderId) throws ApiException {
+        List<BillData> reqBill = new ArrayList<BillData>();
+        OrderPojo order = service.get(orderId);
+        List<OrderItemPojo> allItems = itemService.getAllByOrderId(orderId);
+        for(OrderItemPojo p:allItems) {
+            BillData item = new BillData();
+            ProductPojo product = productService.get(p.getProductId());
+            item.setBarcode(product.getBarcode());
+            item.setName(product.getName());
+            item.setQuantity(p.getQuantity());
+            item.setPrice(p.getSellingPrice());
+            item.setDate(order.getDate());
+            item.setId(order.getId());
+            reqBill.add(item);
+        }
+        return reqBill;
+    }
 
     //-------------------------------------------------------------------------------------------------------
     //UPDATING AN ORDER BY ORDER ID
