@@ -66,6 +66,12 @@ public class OrderDto {
         return orderData;
     }
 
+    //DISABLE INVOICE
+    @Transactional(rollbackOn = ApiException.class)
+    public void disableInvoice(int id) throws ApiException {
+        service.get(id).setInvoiceGenerated(true);
+    }
+
     //GETTING ALL ORDER ITEMS BY ORDER ID
     @Transactional(rollbackOn = ApiException.class)
     public List<OrderItemData> getAllItems( int orderId) throws ApiException {
@@ -197,6 +203,7 @@ public class OrderDto {
         OrderData data = new OrderData();
         data.setDate(p.getDate());
         data.setId(p.getId());
+        data.setInvoiceGenerated(p.isInvoiceGenerated());
         double totalAmount = 0;
         List<OrderItemPojo> itemPojos = itemService.getAllByOrderId(p.getId());
         for(OrderItemPojo itemPojo : itemPojos)

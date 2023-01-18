@@ -63,4 +63,10 @@ public class OrderApiController {
 		String encodedStr = Base64.getEncoder().encodeToString(encodedBytes);
 		GeneratePDF.createResponse(response, encodedStr);
 	}
+
+	@ApiOperation(value = "disable invoice")
+	@RequestMapping(value = "/api/order/invoice-disable/{id}",method = RequestMethod.GET)
+	public void disableInvoice(@PathVariable int id) throws ApiException, ParserConfigurationException, TransformerException, FOPException, IOException {
+		dto.disableInvoice(id);
+	}
 }

@@ -13,6 +13,7 @@ public class OrderPojo {
     @GeneratedValue(strategy=GenerationType.IDENTITY)
     private int id;
     private Date date;
+    private boolean isInvoiceGenerated;
 
     public int getId() {
         return id;
@@ -28,5 +29,13 @@ public class OrderPojo {
 
     public void setDate(Date date) {
         this.date = date;
+    }
+
+    public boolean isInvoiceGenerated() {
+        return isInvoiceGenerated;
+    }
+
+    public void setInvoiceGenerated(boolean invoiceGenerated) {
+        isInvoiceGenerated = invoiceGenerated;
     }
 }

@@ -150,11 +150,18 @@ function displayOrderList(data){
 	$tbody.empty();
 	for(var i in data){
 		var e = data[i];
+		console.log(e);
 
 		var newDate = new Date(e.date);
 		var buttonHtml = '<button class="btn shadow btn-outline-info" onclick="displayOrderDetails(' + e.id + ')">Details</button>'
-		buttonHtml += ' <button class="btn shadow btn-outline-warning" onclick="displayEditOrder(' + e.id + ')">Edit</button>'
+		if(e.invoiceGenerated) {
+			buttonHtml += ' <button class="btn shadow btn-outline-warning disabled">Edit</button>'
+		} else {
+			buttonHtml += ' <button class="btn shadow btn-outline-warning" onclick="displayEditOrder(' + e.id + ')">Edit</button>'
+		}
+		
 		buttonHtml += ' <button class="btn shadow btn-outline-warning" onclick="generateInvoice(' + e.id + ')">Invoice</button>'
+		
 		var row = '<tr>'
 		+ '<td>' + e.id + '</td>'
 		+ '<td>' + newDate.toString() + '</td>'
@@ -444,6 +451,15 @@ function generateInvoice(id){
 				 }
 				 let blob = new Blob([bytes], {type: "application/pdf"});
 			  downloadBillPdf(blob);
+			  var disableUrl = getOrderUrl() + "/invoice-disable/" + id;
+				$.ajax({
+					url : disableUrl,
+					type : 'GET',
+					success : function(){
+							getOrderList();
+					},
+					error:handleAjaxError
+				});
 			  getOrderList();
 		},
 			error: handleAjaxError

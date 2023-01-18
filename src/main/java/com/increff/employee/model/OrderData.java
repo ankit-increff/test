@@ -7,6 +7,15 @@ public class OrderData {
 	private int id;
 	private Date date;
 	private double amount;
+	private boolean isInvoiceGenerated;
+
+	public boolean isInvoiceGenerated() {
+		return isInvoiceGenerated;
+	}
+
+	public void setInvoiceGenerated(boolean invoiceGenerated) {
+		isInvoiceGenerated = invoiceGenerated;
+	}
 
 	public int getId() {
 		return id;
