@@ -50,8 +50,6 @@ function displayInventoryList(data){
 }
 
 const fillOptions = () => {
-	let $selectCategory = $("#inputCategory");
-
 	var url = getBrandUrl();
 
 	$.ajax({
@@ -68,18 +66,30 @@ const fillOptions = () => {
 
 const populateBrand = data => {
 	let $selectBrand = $("#inputBrand");
+
+	let brands = new Set();
 	for(var i in data){
 		var e = data[i];
-		var ele = '<option value="'+e.name+'">' + e.name + '</option>';
+		brands.add(e.name);
+	}
+
+	for(brand of brands.values()) {
+		var ele = '<option value="'+brand+'">' + brand + '</option>';
         $selectBrand.append(ele);
 	}
 }
 
 const populateCategory = data => {
 	let $selectCategory = $("#inputCategory");
+
+	let categories = new Set();
 	for(var i in data){
 		var e = data[i];
-		var ele = '<option value="'+e.category+'">' + e.category + '</option>';
+		categories.add(e.category);
+	}
+
+	for(category of categories.values()) {
+		var ele = '<option value="'+category+'">' + category + '</option>';
         $selectCategory.append(ele);
 	}
 }
