@@ -36,9 +36,9 @@ th, td {
 	text-align: center;
 }
 
-a:hover {
+a:hover, .dropdown-item:hover {
 	background-color: #0085f230;
-    color: #0069c2;
+    color: #0069c2 !important;
     text-decoration: none;
 	border-radius: 0.7rem;
   }
@@ -46,3 +46,7 @@ a:hover {
 .btn:hover {
 	transform: scale(1.1);
 }
+
+/* .table {
+	transition: all 0.3s ease-out;
+} */

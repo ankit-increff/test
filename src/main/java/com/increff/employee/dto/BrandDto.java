@@ -42,6 +42,12 @@ public class BrandDto {
 
     //GETTING A BRAND BY NAME AND CATEGORY
     @Transactional(rollbackOn = ApiException.class)
+    public List<BrandPojo> getByNameCategory(String name, String category) throws ApiException {
+        return service.getByNameCategory(name,category);
+    }
+
+    //GETTING A BRAND BY NAME AND CATEGORY
+    @Transactional(rollbackOn = ApiException.class)
     public BrandPojo get(String name, String category) throws ApiException {
         return getCheck(name, category);
 

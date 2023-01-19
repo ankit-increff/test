@@ -3,13 +3,23 @@ function getBrandUrl(){
 	return baseUrl + "/api/reports/brand-category";
 }
 
-function getBrandList(){
+function filterReport() {
+	var $form = $("#brand-form");
+	var json = toJson($form);
 	var url = getBrandUrl();
+
+	console.log(json);
+
 	$.ajax({
 	   url: url,
-	   type: 'GET',
-	   success: function(data) {
-	   		displayBrandList(data);
+	   type: 'POST',
+	   data: json,
+	   headers: {
+		'Content-Type': 'application/json'
+	   },
+	   success: function(response) {
+		   console.log(response);
+			displayBrandList(response);
 	   },
 	   error: handleAjaxError
 	});
@@ -32,5 +42,11 @@ function displayBrandList(data){
 	}
 }
 
-$(document).ready(getBrandList);
+//INITIALIZATION CODE
+function init(){
+$('#filter-report').click(filterReport);
+filterReport();
+}
+ 
+ $(document).ready(init);
 

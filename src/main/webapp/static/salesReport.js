@@ -45,6 +45,7 @@ function getSalesReportUrl(){
  //INITIALIZATION CODE
  function init(){
     $('#filter-sales-report').click(filterSalesReport);
+    filterSalesReport();
  }
  
  $(document).ready(init);

@@ -1,7 +1,6 @@
 package com.increff.employee.dao;
 
 import com.increff.employee.pojo.DailySalesPojo;
-import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Repository;
 
 import javax.persistence.EntityManager;

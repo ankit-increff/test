@@ -28,8 +28,8 @@ public class ReportDto {
 
 
     @Transactional(rollbackOn = ApiException.class)
-    public List<InventoryReportData> getAllInventories() throws ApiException {
-        List<BrandPojo> allBrands = brandService.getAll();
+    public List<InventoryReportData> getInventories(ReportForm f) throws ApiException {
+        List<BrandPojo> allBrands = brandService.getByNameCategory(f.getBrand(), f.getCategory());
         Map<Integer, Integer> map = new HashMap<>();
 
         for(BrandPojo p : allBrands) {
@@ -40,8 +40,10 @@ public class ReportDto {
         for(InventoryPojo p : allInventory) {
             int quantity = p.getQuantity();
             int brandId = productService.get(p.getId()).getBrandId();
-            int curr = map.get(brandId);
-            map.put(brandId, curr+quantity);
+            if(map.containsKey(brandId)){
+                int curr = map.get(brandId);
+                map.put(brandId, curr+quantity);
+            }
         }
 
         List<InventoryReportData> report = new ArrayList<>();
@@ -58,10 +60,10 @@ public class ReportDto {
     }
 
     @Transactional(rollbackOn = ApiException.class)
-    public List<BrandForm> getAllBrands() throws ApiException {
+    public List<BrandForm> getBrands(ReportForm f) throws ApiException {
         List<BrandForm> report = new ArrayList<>();
 
-        List<BrandPojo> allBrands = brandService.getAll();
+        List<BrandPojo> allBrands = brandService.getByNameCategory(f.getBrand(), f.getCategory());
         for(BrandPojo p : allBrands) {
             BrandForm form = new BrandForm();
             form.setCategory(p.getCategory());
@@ -76,6 +78,7 @@ public class ReportDto {
     public List<SalesReportData> getSales(SalesReportForm form) throws ApiException {
         List<SalesReportData> report = new ArrayList<>();
 
+        //DEFINING START AND END DATE
         if(form.getStartDate() == null) {
             Date begin = new Date();
             begin.setTime(1000);
@@ -96,6 +99,7 @@ public class ReportDto {
         form.setStartDate(getStartOfDay(form.getStartDate(),Calendar.getInstance()));
         form.setEndDate(getEndOfDay(form.getEndDate(),Calendar.getInstance()));
 
+        //
         String brand = form.getBrand();
         String category = form.getCategory();
 

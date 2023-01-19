@@ -31,7 +31,6 @@ public class BrandApiController {
 	
 	@ApiOperation(value = "Deletes a brand")
 	@RequestMapping(path = "/api/brand/{id}", method = RequestMethod.DELETE)
-	// /api/1
 	public void delete(@PathVariable int id) {
 		dto.delete(id);
 	}
@@ -41,6 +40,13 @@ public class BrandApiController {
 	public BrandData get(@PathVariable int id) throws ApiException {
 		BrandPojo p = dto.get(id);
 		return convert(p);
+	}
+
+	@ApiOperation(value = "Gets list of all brands by name and category")
+	@RequestMapping(path = "/api/brand", params = {"brand", "category"}, method = RequestMethod.GET)
+	public List<BrandPojo> getByBrandCategory(@RequestParam(value = "brand") String brand, @RequestParam(value = "category") String category) throws ApiException {
+//		System.out.println(brand+category);
+		return dto.getByNameCategory(brand, category);
 	}
 
 	@ApiOperation(value = "Gets list of all brands")
