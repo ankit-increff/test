@@ -179,7 +179,7 @@ console.log("displaying brand")
 	for(var i in data){
 		var e = data[i];
 		// var buttonHtml = '<button onclick="deleteBrand(' + e.id + ')">delete</button>'
-		var buttonHtml = ' <button class="btn shadow btn-outline-warning" onclick="displayEditBrand(' + e.id + ')">Edit</button>'
+		var buttonHtml = ' <button title="Edit" class="btn" onclick="displayEditBrand(' + e.id + ')"><img src="'+getBaseUrl()+'/static/images/edit1.png" alt="Edit" /></button>'
 		var row = '<tr>'
 		+ '<td>' + index++ + '</td>'
 		+ '<td>' + e.name + '</td>'

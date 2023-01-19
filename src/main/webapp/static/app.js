@@ -12,6 +12,8 @@ function toJson($form){
     return json;
 }
 
+const getBaseUrl = () => $("meta[name=baseUrl]").attr("content");
+
 
 function handleAjaxError(response){
 	var response = JSON.parse(response.responseText);

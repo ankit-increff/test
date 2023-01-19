@@ -148,7 +148,7 @@ function displayProductList(data){
 		var e = data[i];
 //		console.log(e);
 //		var buttonHtml = '<button onclick="deleteProduct(' + e.id + ')">delete</button>'
-		var buttonHtml = ' <button class="btn shadow btn-outline-warning" onclick="displayEditProduct(' + e.id + ')">Edit</button>'
+		var buttonHtml = ' <button title="Edit" class="btn" onclick="displayEditProduct(' + e.id + ')"><img src="'+getBaseUrl()+'/static/images/edit1.png" alt="Edit" /></button>'
 		var row = '<tr>'
 		+ '<td>' + index++ + '</td>'
 		+ '<td>' + e.name + '</td>'

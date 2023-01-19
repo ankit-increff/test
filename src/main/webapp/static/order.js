@@ -48,8 +48,6 @@ console.log("Order running");
 
 let globalOrderId = 1;
 
-
-
 function getOrderUrl(){
 	var baseUrl = $("meta[name=baseUrl]").attr("content")
 	return baseUrl + "/api/order";
@@ -153,14 +151,14 @@ function displayOrderList(data){
 		console.log(e);
 
 		var newDate = new Date(e.date);
-		var buttonHtml = '<button class="btn shadow btn-outline-info" onclick="displayOrderDetails(' + e.id + ')">Details</button>'
+		var buttonHtml = '<button title="Details" class="btn" onclick="displayOrderDetails(' + e.id + ')"><img src="'+getBaseUrl()+'/static/images/details.png" alt="Details" /></button>'
 		if(e.invoiceGenerated) {
-			buttonHtml += ' <button class="btn shadow btn-outline-warning disabled">Edit</button>'
+			buttonHtml += ' <button title="Edit" class="btn disabled"><img src="'+getBaseUrl()+'/static/images/edit2.png" alt="Edit" /></button>'
 		} else {
-			buttonHtml += ' <button class="btn shadow btn-outline-warning" onclick="displayEditOrder(' + e.id + ')">Edit</button>'
+			buttonHtml += ' <button title="Edit" class="btn" onclick="displayEditOrder(' + e.id + ')"><img src="'+getBaseUrl()+'/static/images/edit1.png" alt="Edit" /></button>'
 		}
 		
-		buttonHtml += ' <button class="btn shadow btn-outline-warning" onclick="generateInvoice(' + e.id + ')">Invoice</button>'
+		buttonHtml += ' <button title="Invoice" class="btn" onclick="generateInvoice(' + e.id + ')"><img src="'+getBaseUrl()+'/static/images/invoice.png" alt="Invoice" /></button>'
 		
 		var row = '<tr>'
 		+ '<td>' + e.id + '</td>'
@@ -194,7 +192,7 @@ function editOrderForm(data) {
 	$tbody.empty();
 	for(var i in data){
 		var e = data[i];
-		var buttonHtml = '<button class="btn shadow btn-outline-danger" onclick=removeFromModal(event)>Delete</button>'
+		var buttonHtml = '<button title="Delete" class="btn" onclick=removeFromModal(event)><img src="'+getBaseUrl()+'/static/images/delete.png" alt="Delete" /></button>'
 		var row = '<tr class="update-row">'
 		+ '<td class="update-barcode">' + e.barcode + '</td>'
 		+ '<td>' + e.name + '</td>'
@@ -232,7 +230,7 @@ function displayInEditTable(e) {
 	let barcode = document.querySelector(".edit-barcode");
 	
 	var $tbody = $('#order-edit-table').find('tbody');
-		var buttonHtml = '<button class="btn shadow btn-outline-danger" onclick=removeFromModal(event)>Delete</button>'
+		var buttonHtml = '<button title="Delete" class="btn" onclick=removeFromModal(event)><img src="'+getBaseUrl()+'/static/images/delete.png" alt="Delete" /></button>'
 		var row = '<tr class="update-row">'
 		+ '<td class="update-barcode">' + e.barcode + '</td>'
 		+ '<td>' + e.name + '</td>'
@@ -249,7 +247,7 @@ function displayInEditTable(e) {
 
 
 function removeFromModal(e) {
-	e.target.parentElement.parentElement.remove();
+	e.target.parentElement.parentElement.parentElement.remove();
 }
 
 
@@ -277,7 +275,7 @@ function displayInCreateTable(e) {
 	let barcode = document.querySelector(".add-barcode");
 	
 	var $tbody = $('#order-add-table').find('tbody');
-		var buttonHtml = '<button class="btn shadow btn-outline-danger" onclick=removeFromModal(event)>Delete</button>'
+		var buttonHtml = '<button title="Delete" class="btn" onclick=removeFromModal(event)><img src="'+getBaseUrl()+'/static/images/delete.png" alt="Delete" /></button>'
 		var row = '<tr class="new-row">'
 		+ '<td class="new-barcode">' + e.barcode + '</td>'
 		+ '<td>' + e.name + '</td>'
