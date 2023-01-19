@@ -8,9 +8,9 @@
 
 <nav th:replace="snippets.html :: name_app_navbar"></nav>
 
-<div class="container">
+<div class="container mt-4">
 
-<h3>Home</h3>
+<h1>Home</h1>
 
  <!-- Top row with form-->
 
@@ -67,6 +67,8 @@
 
 let element = document.querySelector("#home-link");
 	element.classList.add("active");
+
+	document.querySelector(".nav-left").style.display = "none";
 </script>
 
 
