@@ -45,6 +45,13 @@ a:hover, .dropdown-item:hover {
   
 .btn:hover {
 	transform: scale(1.1);
+	color: white !important;
+}
+
+.active {
+	/* font-weight:400; */
+	/* color: aqua !important; */
+	text-shadow: 1px 1px 10px #56a597;
 }
 
 /* .table {
