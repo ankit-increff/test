@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 
 import com.increff.employee.model.MessageData;
 import com.increff.employee.service.ApiException;
+import org.springframework.web.servlet.ModelAndView;
 
 @RestControllerAdvice
 public class AppRestControllerAdvice {
@@ -26,4 +27,13 @@ public class AppRestControllerAdvice {
 		data.setMessage("An unknown error has occurred - " + e.getMessage());
 		return data;
 	}
+
+//	@ExceptionHandler(Throwable.class)
+//	@ResponseStatus(HttpStatus.UNAUTHORIZED)
+//	public ModelAndView handle() {
+//		return new ModelAndView("redirect:/ui/home");
+////		MessageData data = new MessageData();
+////		data.setMessage("An unknown error has occurred - " + e.getMessage());
+////		return data;
+//	}
 }

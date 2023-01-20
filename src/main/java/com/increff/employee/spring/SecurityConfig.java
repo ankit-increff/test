@@ -2,6 +2,7 @@ package com.increff.employee.spring;
 
 import org.apache.log4j.Logger;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.builders.WebSecurity;
@@ -24,10 +25,18 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 				.antMatchers("/api/**")//
 				.antMatchers("/ui/**")//
 				.and().authorizeRequests()//
+//				.antMatchers("/api/orders/**").hasAnyAuthority("supervisor", "operator")//
+//				.antMatchers("/api/reports/**").hasAnyAuthority("supervisor", "operator")//
+//				.antMatchers(HttpMethod.POST,"/api/**").hasAuthority("supervisor")//
+//				.antMatchers(HttpMethod.PUT,"/api/**").hasAuthority("supervisor")//
 				.antMatchers("/api/admin/**").hasAuthority("admin")//
 				.antMatchers("/api/**").hasAnyAuthority("admin", "standard")//
 				.antMatchers("/ui/admin/**").hasAuthority("admin")//
 				.antMatchers("/ui/**").hasAnyAuthority("admin", "standard")//
+				.and()
+				.formLogin()
+				.loginPage("/site/login")
+
 				// Ignore CSRF and CORS
 				.and().csrf().disable().cors().disable();
 		logger.info("Configuration complete");

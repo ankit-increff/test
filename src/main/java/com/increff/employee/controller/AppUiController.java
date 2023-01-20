@@ -1,14 +1,22 @@
 package com.increff.employee.controller;
 
+import com.increff.employee.model.InfoData;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
 @Controller
 public class AppUiController extends AbstractUiController {
+	@Autowired
+	private InfoData info;
 
 	@RequestMapping(value = "/ui/home")
 	public ModelAndView home() {
+//		if(info.getEmail().equals("")) {
+//			info.setMessage("Please login to enable access!");
+//			return new ModelAndView("redirect:/site/login");
+//		}
 		return mav("home.html");
 	}
 
