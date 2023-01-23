@@ -50,6 +50,19 @@ public class AdminApiController {
 		return list2;
 	}
 
+	@ApiOperation(value = "Gets user details")
+	@RequestMapping(path = "/api/admin/user/{id}", method = RequestMethod.GET)
+	public UserData get(@PathVariable int id) throws ApiException {
+		return convert(service.get(id));
+	}
+
+	@ApiOperation(value = "Updates the role of user")
+	@RequestMapping(path = "/api/admin/user", method = RequestMethod.PUT)
+	public void update(@RequestBody UserForm form) throws ApiException {
+		service.update(form.getEmail(), form.getRole());
+	}
+
+
 	private static UserData convert(UserPojo p) {
 		UserData d = new UserData();
 		d.setEmail(p.getEmail());
