@@ -148,17 +148,18 @@ function displayInventoryList(data){
 	for(var i in data){
 		var e = data[i];
 //		var buttonHtml = '<button onclick="deleteInventory(' + e.id + ')">delete</button>'
-		var buttonHtml = ' <button title="Edit" class="btn" onclick="displayEditInventory(\'' + e.barcode + '\')"><img src="'+getBaseUrl()+'/static/images/edit1.png" alt="Edit" /></button>'
+		var buttonHtml = ' <button title="Edit" class="btn supervisor-only" onclick="displayEditInventory(\'' + e.barcode + '\')"><img src="'+getBaseUrl()+'/static/images/edit1.png" alt="Edit" /></button>'
 		console.log(e);
 		var row = '<tr>'
 		+ '<td>' + index++ + '</td>'
 		+ '<td>' + e.barcode + '</td>'
 		+ '<td>' + e.name + '</td>'
 		+ '<td>' + e.quantity + '</td>'
-		+ '<td>' + buttonHtml + '</td>'
+		+ '<td class="supervisor-only">' + buttonHtml + '</td>'
 		+ '</tr>';
         $tbody.append(row);
 	}
+	verifyRole();
 }
 
 function displayEditInventory(barcode){

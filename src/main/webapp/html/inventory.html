@@ -13,7 +13,7 @@
   <h1>Inventory</h1>
 
   <!-- Top row with form-->
-  <div class="row">
+  <div class="row supervisor-only">
     <div class="col-12">
         <button type="button" class="btn shadow btn-primary" data-toggle="modal" data-target="#add-inventory-modal" id="add-inventory">
           Update Inventory
@@ -41,7 +41,7 @@
           <th scope="col">Barcode</th>
           <th scope="col">Name</th>
           <th scope="col">Quantity</th>
-          <th scope="col">Actions</th>
+          <th class="supervisor-only" scope="col">Actions</th>
         </tr>
         </thead>
         <tbody>

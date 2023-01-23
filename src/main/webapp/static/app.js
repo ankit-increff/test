@@ -13,6 +13,7 @@ function toJson($form){
 }
 
 const getBaseUrl = () => $("meta[name=baseUrl]").attr("content");
+const getRole = () => $("meta[name=role]").attr("content");
 
 
 function handleAjaxError(response){
@@ -56,3 +57,11 @@ function writeFileData(arr){
     tempLink.setAttribute('download', 'download.tsv');
     tempLink.click(); 
 }
+
+const verifyRole = () => {
+    console.log(getRole());
+    if(getRole() !== "supervisor") {
+        $(".supervisor-only").hide();
+    }
+}
+verifyRole();

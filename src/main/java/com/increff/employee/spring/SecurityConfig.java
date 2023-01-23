@@ -25,14 +25,14 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 				.antMatchers("/api/**")//
 				.antMatchers("/ui/**")//
 				.and().authorizeRequests()//
-//				.antMatchers("/api/orders/**").hasAnyAuthority("supervisor", "operator")//
-//				.antMatchers("/api/reports/**").hasAnyAuthority("supervisor", "operator")//
-//				.antMatchers(HttpMethod.POST,"/api/**").hasAuthority("supervisor")//
-//				.antMatchers(HttpMethod.PUT,"/api/**").hasAuthority("supervisor")//
-				.antMatchers("/api/admin/**").hasAuthority("admin")//
-				.antMatchers("/api/**").hasAnyAuthority("admin", "standard")//
-				.antMatchers("/ui/admin/**").hasAuthority("admin")//
-				.antMatchers("/ui/**").hasAnyAuthority("admin", "standard")//
+				.antMatchers("/api/order/**").hasAnyAuthority("supervisor", "operator")//
+				.antMatchers("/api/reports/**").hasAnyAuthority("supervisor", "operator")//
+				.antMatchers(HttpMethod.POST,"/api/**").hasAuthority("supervisor")//
+				.antMatchers(HttpMethod.PUT,"/api/**").hasAuthority("supervisor")//
+				.antMatchers("/api/admin/**").hasAuthority("supervisor")//
+				.antMatchers("/api/**").hasAnyAuthority("supervisor", "operator")//
+				.antMatchers("/ui/admin/**").hasAuthority("supervisor")//
+				.antMatchers("/ui/**").hasAnyAuthority("supervisor", "operator")//
 				.and()
 				.formLogin()
 				.loginPage("/site/login")

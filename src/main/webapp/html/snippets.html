@@ -4,6 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <meta name="baseUrl" th:attr="content=${baseUrl}">
+<meta name="role" th:attr="content=${role}">
 
 <script src="https://kit.fontawesome.com/908c6761fc.js" crossorigin="anonymous"></script>
 
@@ -77,15 +78,15 @@
             <a class="dropdown-item" th:href="@{/ui/reports/daily-report}">Daily Sales Report</a>
           </div>
       </li>
-      <li class="nav-item">
+      <li class="nav-item supervisor-only">
         <a class="nav-link" id="admin-link" th:href="@{/ui/admin}">Admin</a>
       </li>
     </ul>
     
     <ul class="navbar-nav ml-auto">
 	    <li class="navbar-text">
-	    	[[${info.getEmail()}]]
-	    	&nbsp;&gt;&nbsp;
+	    	<b>([[${info.getRole()}]])</b> [[${info.getEmail()}]]
+	    	&nbsp;&nbsp;
 	    </li>
 	    <li class="nav-item">
 	    	<a title="Logout" class="nav-link" th:href="@{/session/logout}"><img th:src=@{/static/images/logout.png} alt="Logout"/></a>

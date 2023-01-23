@@ -3,6 +3,7 @@ package com.increff.employee.controller;
 import com.increff.employee.dto.BrandDto;
 import com.increff.employee.model.BrandData;
 import com.increff.employee.model.BrandForm;
+import com.increff.employee.model.InfoData;
 import com.increff.employee.pojo.BrandPojo;
 import com.increff.employee.service.ApiException;
 import com.increff.employee.service.BrandService;
@@ -20,6 +21,8 @@ public class BrandApiController {
 
 	@Autowired
 	private BrandDto dto;
+	@Autowired
+	private InfoData info;
 
 	@ApiOperation(value = "Adds a brand")
 	@RequestMapping(path = "/api/brand", method = RequestMethod.POST)

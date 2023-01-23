@@ -55,7 +55,7 @@ public class SignupController {
 			return new ModelAndView("redirect:/site/login");
 		}
 
-		UserPojo p = SignupUtil.convert(f,"admin");
+		UserPojo p = SignupUtil.convert(f,"operator");
 		service.add(p);
 
 		// Create authentication object

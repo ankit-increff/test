@@ -8,15 +8,9 @@ import org.springframework.web.servlet.ModelAndView;
 
 @Controller
 public class AppUiController extends AbstractUiController {
-	@Autowired
-	private InfoData info;
 
 	@RequestMapping(value = "/ui/home")
 	public ModelAndView home() {
-//		if(info.getEmail().equals("")) {
-//			info.setMessage("Please login to enable access!");
-//			return new ModelAndView("redirect:/site/login");
-//		}
 		return mav("home.html");
 	}
 

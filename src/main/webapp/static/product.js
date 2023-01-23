@@ -156,10 +156,11 @@ function displayProductList(data){
 		+ '<td>'  + e.brand + '</td>'
 		+ '<td>'  + e.category + '</td>'
 		+ '<td>'  + parseFloat(e.mrp).toFixed(2) + '</td>'
-		+ '<td>' + buttonHtml + '</td>'
+		+ '<td class="supervisor-only">' + buttonHtml + '</td>'
 		+ '</tr>';
         $tbody.append(row);
 	}
+	verifyRole();
 }
 
 function displayEditProduct(id){

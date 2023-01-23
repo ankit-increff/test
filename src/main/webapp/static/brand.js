@@ -184,10 +184,11 @@ console.log("displaying brand")
 		+ '<td>' + index++ + '</td>'
 		+ '<td>' + e.name + '</td>'
 		+ '<td>'  + e.category + '</td>'
-		+ '<td>' + buttonHtml + '</td>'
+		+ '<td class="supervisor-only">' + buttonHtml + '</td>'
 		+ '</tr>';
         $tbody.append(row);
 	}
+	verifyRole();
 }
 
 function displayEditBrand(id){
@@ -252,9 +253,9 @@ function init(){
 //	$('#process-data').click(processData);
 //	$('#download-errors').click(downloadErrors);
 //    $('#employeeFile').on('change', updateFileName)
-
 	let element = document.querySelector("#brand-link");
 	element.classList.add("active");
+	
 }
 
 $(document).ready(init);

@@ -146,6 +146,7 @@ function convertJson($form){
 function displayOrderList(data){
 	var $tbody = $('#order-table').find('tbody');
 	$tbody.empty();
+	data.reverse();
 	for(var i in data){
 		var e = data[i];
 		console.log(e);
@@ -153,9 +154,9 @@ function displayOrderList(data){
 		var newDate = new Date(e.date);
 		var buttonHtml = '<button title="Details" class="btn" onclick="displayOrderDetails(' + e.id + ')"><img src="'+getBaseUrl()+'/static/images/details.png" alt="Details" /></button>'
 		if(e.invoiceGenerated) {
-			buttonHtml += ' <button title="Edit" class="btn disabled"><img src="'+getBaseUrl()+'/static/images/edit2.png" alt="Edit" /></button>'
+			buttonHtml += ' <button title="Edit" class="btn supervisor-only disabled"><img src="'+getBaseUrl()+'/static/images/edit2.png" alt="Edit" /></button>'
 		} else {
-			buttonHtml += ' <button title="Edit" class="btn" onclick="displayEditOrder(' + e.id + ')"><img src="'+getBaseUrl()+'/static/images/edit1.png" alt="Edit" /></button>'
+			buttonHtml += ' <button title="Edit" class="btn supervisor-only" onclick="displayEditOrder(' + e.id + ')"><img src="'+getBaseUrl()+'/static/images/edit1.png" alt="Edit" /></button>'
 		}
 		
 		buttonHtml += ' <button title="Invoice" class="btn" onclick="generateInvoice(' + e.id + ')"><img src="'+getBaseUrl()+'/static/images/invoice.png" alt="Invoice" /></button>'
@@ -168,6 +169,7 @@ function displayOrderList(data){
 		+ '</tr>';
         $tbody.append(row);
 	}
+	verifyRole();
 }
 
 //_____________________________________________EDIT BUTTON FUNCTIONALITY____________________________________
