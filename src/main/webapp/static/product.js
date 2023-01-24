@@ -155,8 +155,8 @@ function displayProductList(data){
 		+ '<td>'  + e.barcode + '</td>'
 		+ '<td>'  + e.brand + '</td>'
 		+ '<td>'  + e.category + '</td>'
-		+ '<td>'  + parseFloat(e.mrp).toFixed(2) + '</td>'
-		+ '<td class="supervisor-only">' + buttonHtml + '</td>'
+		+ '<td class="text-right">'  + parseFloat(e.mrp).toFixed(2) + '</td>'
+		+ '<td class="supervisor-only text-center">' + buttonHtml + '</td>'
 		+ '</tr>';
         $tbody.append(row);
 	}

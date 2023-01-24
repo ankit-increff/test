@@ -41,7 +41,7 @@ function getSalesReportUrl(){
          + '<td>' + b.brand + '</td>'
          + '<td>' + b.category + '</td>'
          + '<td>' + b.quantity + '</td>'
-         + '<td>' + parseFloat(b.revenue ).toFixed(2)+ '</td>'
+         + '<td class="text-right">' + parseFloat(b.revenue ).toFixed(2)+ '</td>'
          + '</tr>';
          $tbody.append(row);
      }

@@ -184,7 +184,7 @@ console.log("displaying brand")
 		+ '<td>' + index++ + '</td>'
 		+ '<td>' + e.name + '</td>'
 		+ '<td>'  + e.category + '</td>'
-		+ '<td class="supervisor-only">' + buttonHtml + '</td>'
+		+ '<td class="supervisor-only text-center">' + buttonHtml + '</td>'
 		+ '</tr>';
         $tbody.append(row);
 	}

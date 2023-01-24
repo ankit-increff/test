@@ -164,8 +164,8 @@ function displayOrderList(data){
 		var row = '<tr>'
 		+ '<td>' + e.id + '</td>'
 		+ '<td>' + newDate.toString() + '</td>'
-		+ '<td>'  + parseFloat(e.amount).toFixed(2) + '</td>'
-		+ '<td>' + buttonHtml + '</td>'
+		+ '<td class="text-right">'  + parseFloat(e.amount).toFixed(2) + '</td>'
+		+ '<td class="text-center">' + buttonHtml + '</td>'
 		+ '</tr>';
         $tbody.append(row);
 	}
@@ -199,8 +199,8 @@ function editOrderForm(data) {
 		+ '<td class="update-barcode">' + e.barcode + '</td>'
 		+ '<td>' + e.name + '</td>'
 		+ '<td><input type="number" class="form-control w-50 update-quantity" value="'  + e.quantity + '"></td>'
-		+ '<td><input type="number" class="form-control w-50 update-price" value="'  + parseFloat(e.sellingPrice).toFixed(2) + '"></td>'
-		+ '<td>' + buttonHtml + '</td>'
+		+ '<td class="text-right"><input type="number" class="form-control w-50 update-price" value="'  + parseFloat(e.sellingPrice).toFixed(2) + '"></td>'
+		+ '<td class="text-center">' + buttonHtml + '</td>'
 		+ '</tr>';
         $tbody.append(row);
 	}	
@@ -237,8 +237,8 @@ function displayInEditTable(e) {
 		+ '<td class="update-barcode">' + e.barcode + '</td>'
 		+ '<td>' + e.name + '</td>'
 		+ '<td><input type="number" class="form-control w-50 update-quantity" value="'  + quantity.value + '"></td>'
-		+ '<td><input type="number" class="form-control w-50 update-price" value="'  + parseFloat(price.value).toFixed(2) + '"></td>'
-		+ '<td>' + buttonHtml + '</td>'
+		+ '<td class="text-right"><input type="number" class="form-control w-50 update-price" value="'  + parseFloat(price.value).toFixed(2) + '"></td>'
+		+ '<td class="text-center">' + buttonHtml + '</td>'
 		+ '</tr>';
      $tbody.append(row);
 
@@ -282,8 +282,8 @@ function displayInCreateTable(e) {
 		+ '<td class="new-barcode">' + e.barcode + '</td>'
 		+ '<td>' + e.name + '</td>'
 		+ '<td><input type="number" class="form-control w-50 new-quantity" value="'  + quantity.value + '"></td>'
-		+ '<td><input type="number" class="form-control w-50 new-price" value="'  + parseFloat(price.value).toFixed(2) + '"></td>'
-		+ '<td>' + buttonHtml + '</td>'
+		+ '<td class="text-right"><input type="number" class="form-control w-50 new-price" value="'  + parseFloat(price.value).toFixed(2) + '"></td>'
+		+ '<td class="text-center">' + buttonHtml + '</td>'
 		+ '</tr>';
      $tbody.append(row);
 
@@ -407,7 +407,7 @@ function displayOrder(data){
 		+ '<td>' + e.barcode + '</td>'
 		+ '<td>' + e.name + '</td>'
 		+ '<td>'  + e.quantity + '</td>'
-		+ '<td>'  + parseFloat(e.sellingPrice).toFixed(2) + '</td>'
+		+ '<td class="text-right">'  + parseFloat(e.sellingPrice).toFixed(2) + '</td>'
 		+ '</tr>';
         $tbody.append(row);
 	}	

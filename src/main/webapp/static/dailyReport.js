@@ -33,7 +33,7 @@ function displayReportList(data){
 		+ '<td>' + convertTimeStampToDateTime(e.date) + '</td>'
 		+ '<td>' + e.orders + '</td>'
 		+ '<td>'  + e.items + '</td>'
-		+ '<td>'  + e.revenue + '</td>'
+		+ '<td class="text-right">'  + parseFloat(e.revenue ).toFixed(2) + '</td>'
 		+ '</tr>';
         $tbody.append(row);
 	}

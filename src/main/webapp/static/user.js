@@ -67,7 +67,7 @@ function displayUserList(data){
 		+ '<td>' + e.id + '</td>'
 		+ '<td>' + e.email + '</td>'
 		+ '<td>' + e.role + '</td>'
-		+ '<td>' + buttonHtml + '</td>'
+		+ '<td class="text-center">' + buttonHtml + '</td>'
 		+ '</tr>';
         $tbody.append(row);
 	}

@@ -155,7 +155,7 @@ function displayInventoryList(data){
 		+ '<td>' + e.barcode + '</td>'
 		+ '<td>' + e.name + '</td>'
 		+ '<td>' + e.quantity + '</td>'
-		+ '<td class="supervisor-only">' + buttonHtml + '</td>'
+		+ '<td class="supervisor-only text-center">' + buttonHtml + '</td>'
 		+ '</tr>';
         $tbody.append(row);
 	}

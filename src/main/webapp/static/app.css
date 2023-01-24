@@ -23,9 +23,9 @@ body {
     font-size: 4rem;
 }
 
-th, td {
-    text-align: center;
-}
+/* th, td {
+    text-align: left;
+} */
 
 .table td, .table th {
     padding: 0.7rem;
@@ -46,14 +46,30 @@ a:hover, .dropdown-item:hover {
 .btn:hover {
 	transform: scale(1.1);
 	color: white !important;
+	background-color: auto;
+}
+.img-link:hover {
+	transform: scale(1.05);
+	background-color: transparent;
 }
 
 .active {
 	/* font-weight:400; */
 	/* color: aqua !important; */
 	text-shadow: 1px 1px 10px #56a597;
+	color: #0069c2 !important;
+
 }
 
 /* .table {
 	transition: all 0.3s ease-out;
 } */
+
+thead {
+	top:75px !important;
+	z-index: auto !important;
+}
+
+.navbar-text {
+	vertical-align: middle;
+}
