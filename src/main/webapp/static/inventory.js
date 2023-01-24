@@ -24,6 +24,8 @@ function addInventory(event){
 			$('#add-inventory-modal').modal('toggle');
 			$form[0].reset();	
 	   		getInventoryList();
+			handleAjaxSuccess("Inventory updated successfully!!");
+
 	   },
 	   error: handleAjaxError
 	});
@@ -47,8 +49,10 @@ function updateInventory(event){
        	'Content-Type': 'application/json'
        },
 	   success: function(response) {
+			handleAjaxSuccess("Inventory updated successfully!!");
 	   		getInventoryList();
 			$('#edit-inventory-modal').modal('toggle');
+			
 	   },
 	   error: handleAjaxError
 	});
@@ -154,7 +158,7 @@ function displayInventoryList(data){
 		+ '<td>' + index++ + '</td>'
 		+ '<td>' + e.barcode + '</td>'
 		+ '<td>' + e.name + '</td>'
-		+ '<td>' + e.quantity + '</td>'
+		+ '<td>' + numberWithCommas(e.quantity) + '</td>'
 		+ '<td class="supervisor-only text-center">' + buttonHtml + '</td>'
 		+ '</tr>';
         $tbody.append(row);

@@ -19,8 +19,12 @@ const getRole = () => $("meta[name=role]").attr("content");
 function handleAjaxError(response){
 	var response = JSON.parse(response.responseText);
 	// alert(response.message);
-    $.notify(response.message, 'error');
+    $.notify.defaults( {clickToHide:true,autoHide:false} );
+    $.notify(response.message + " ❌", 'error');
+}
 
+function handleAjaxSuccess(response){
+    $.notify(response, 'success');
 }
 
 function readFileData(file, callback){
@@ -56,6 +60,10 @@ function writeFileData(arr){
     tempLink.href = fileUrl;
     tempLink.setAttribute('download', 'download.tsv');
     tempLink.click(); 
+}
+
+function numberWithCommas(x) {
+    return x.toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",");
 }
 
 const verifyRole = () => {

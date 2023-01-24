@@ -21,6 +21,7 @@ function addProduct(event){
 	   success: function(response) {
 			$('#add-product-modal').modal('toggle');
 			$form[0].reset();
+			handleAjaxSuccess("Product added successfully!!")
 	   		getProductList();
 	   },
 	   error: handleAjaxError
@@ -47,6 +48,7 @@ function updateProduct(event){
        	'Content-Type': 'application/json'
        },	   
 	   success: function(response) {
+			handleAjaxSuccess("Product edited successfully!!")
 	   		getProductList();
 			$('#edit-product-modal').modal('toggle');
 	   },
@@ -155,7 +157,7 @@ function displayProductList(data){
 		+ '<td>'  + e.barcode + '</td>'
 		+ '<td>'  + e.brand + '</td>'
 		+ '<td>'  + e.category + '</td>'
-		+ '<td class="text-right">'  + parseFloat(e.mrp).toFixed(2) + '</td>'
+		+ '<td class="text-right">'  + numberWithCommas(parseFloat(e.mrp).toFixed(2)) + '</td>'
 		+ '<td class="supervisor-only text-center">' + buttonHtml + '</td>'
 		+ '</tr>';
         $tbody.append(row);

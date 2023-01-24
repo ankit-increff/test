@@ -1,51 +1,3 @@
-console.log("Order running");
-
-// let orderForm = document.querySelector("#order-form");
-// let addItem = document.querySelector("#add-item");
-// var index=2;
-
-// addItem.addEventListener("click", (e) => {
-//     let newItem = `<div class="form-group">
-//                                       <div class="form-group">
-//                                           <label for=${"inputBarcode-"+index} class="col-sm-2 col-form-label">Barcode</label>
-//                                           <div class="col-sm-10">
-//                                               <input type="text" class="form-control input-barcode" name="barcode" id=${"inputBarcode-"+index}
-//                                                      placeholder="enter barcode">
-//                                           </div>
-//                                       </div>
-//                                       <div class="form-group">
-//                                           <label for=${"inputQuantity-"+index} class="col-sm-2 col-form-label">Quantity</label>
-//                                           <div class="col-sm-10">
-//                                               <input type="number" class="form-control input-quantity" name="quantity" id=${"inputQuantity-"+index}
-//                                                      placeholder="enter quantity">
-//                                           </div>
-//                                       </div>
-// 									  <div class="form-group">
-//                                           <label for=${"inputPrice-"+index} class="col-sm-2 col-form-label">Price</label>
-//                                           <div class="col-sm-10">
-//                                               <input type="number" class="form-control input-price" name="sellingPrice" id=${"inputprice-"+index}
-//                                                      placeholder="enter price">
-//                                           </div>
-//                                       </div>
-//                                       <button type="button" class="btn shadow btn-warning remove-item" id=${"removeItem-"+index}> - </button>
-//                                   </div>`;
-
-//     let orderForm = document.querySelector("#order-form");
-//     console.log(orderForm.lastElementChild)
-//     orderForm.lastElementChild.insertAdjacentHTML("afterend",newItem);
-//     index++;
-
-//     //removing parameter
-//     let removeItem=document.getElementsByClassName("remove-item");
-//     console.log(removeItem);
-//     for(elem of removeItem){
-//         elem.addEventListener("click", (e)=>{
-//             e.target.parentElement.remove();
-//         })
-//     }
-// })
-
-
 let globalOrderId = 1;
 
 function getOrderUrl(){
@@ -164,7 +116,7 @@ function displayOrderList(data){
 		var row = '<tr>'
 		+ '<td>' + e.id + '</td>'
 		+ '<td>' + newDate.toString() + '</td>'
-		+ '<td class="text-right">'  + parseFloat(e.amount).toFixed(2) + '</td>'
+		+ '<td class="text-right">'  + numberWithCommas(parseFloat(e.amount).toFixed(2)) + '</td>'
 		+ '<td class="text-center">' + buttonHtml + '</td>'
 		+ '</tr>';
         $tbody.append(row);
@@ -192,14 +144,14 @@ function editOrderForm(data) {
 	$orderId.innerText = ` (Id: ${data[0].orderId})`;
 	var $tbody = $('#order-edit-table').find('tbody');
 	$tbody.empty();
-	for(var i in data){
+	for(var i in data) {
 		var e = data[i];
 		var buttonHtml = '<button title="Delete" class="btn" onclick=removeFromModal(event)><img src="'+getBaseUrl()+'/static/images/delete.png" alt="Delete" /></button>'
 		var row = '<tr class="update-row">'
 		+ '<td class="update-barcode">' + e.barcode + '</td>'
 		+ '<td>' + e.name + '</td>'
-		+ '<td><input type="number" class="form-control w-50 update-quantity" value="'  + e.quantity + '"></td>'
-		+ '<td class="text-right"><input type="number" class="form-control w-50 update-price" value="'  + parseFloat(e.sellingPrice).toFixed(2) + '"></td>'
+		+ '<td><input type="number" class="form-control update-quantity" value="'  + e.quantity + '"></td>'
+		+ '<td class="text-right"><input type="number" class="form-control text-right update-price" value="'  + parseFloat(e.sellingPrice).toFixed(2) + '"></td>'
 		+ '<td class="text-center">' + buttonHtml + '</td>'
 		+ '</tr>';
         $tbody.append(row);
@@ -236,8 +188,8 @@ function displayInEditTable(e) {
 		var row = '<tr class="update-row">'
 		+ '<td class="update-barcode">' + e.barcode + '</td>'
 		+ '<td>' + e.name + '</td>'
-		+ '<td><input type="number" class="form-control w-50 update-quantity" value="'  + quantity.value + '"></td>'
-		+ '<td class="text-right"><input type="number" class="form-control w-50 update-price" value="'  + parseFloat(price.value).toFixed(2) + '"></td>'
+		+ '<td><input type="number" class="form-control update-quantity" value="'  + quantity.value + '"></td>'
+		+ '<td class="text-right"><input type="number" class="form-control update-price" value="'  + parseFloat(price.value).toFixed(2) + '"></td>'
 		+ '<td class="text-center">' + buttonHtml + '</td>'
 		+ '</tr>';
      $tbody.append(row);
@@ -281,8 +233,8 @@ function displayInCreateTable(e) {
 		var row = '<tr class="new-row">'
 		+ '<td class="new-barcode">' + e.barcode + '</td>'
 		+ '<td>' + e.name + '</td>'
-		+ '<td><input type="number" class="form-control w-50 new-quantity" value="'  + quantity.value + '"></td>'
-		+ '<td class="text-right"><input type="number" class="form-control w-50 new-price" value="'  + parseFloat(price.value).toFixed(2) + '"></td>'
+		+ '<td><input type="number" class="form-control new-quantity" value="'  + quantity.value + '"></td>'
+		+ '<td class="text-right"><input type="number" class="form-control text-right new-price" value="'  + parseFloat(price.value).toFixed(2) + '"></td>'
 		+ '<td class="text-center">' + buttonHtml + '</td>'
 		+ '</tr>';
      $tbody.append(row);
@@ -327,6 +279,8 @@ function CreateNewOrder(e) {
 			$('#add-order-modal').modal('toggle');
 			$('#order-add-table').find('tbody').empty();
 	   		getOrderList();
+			handleAjaxSuccess("Order placed successfully!!")
+
 	   },
 	   error: handleAjaxError
 	});
@@ -367,6 +321,8 @@ function updateOrder(e) {
 	   success: function(response) {
 	   		getOrderList();
 			$('#order-edit-modal').modal('toggle');
+			handleAjaxSuccess("Order details updated successfully!!")
+
 	   },
 	   error: handleAjaxError
 	});
@@ -407,7 +363,7 @@ function displayOrder(data){
 		+ '<td>' + e.barcode + '</td>'
 		+ '<td>' + e.name + '</td>'
 		+ '<td>'  + e.quantity + '</td>'
-		+ '<td class="text-right">'  + parseFloat(e.sellingPrice).toFixed(2) + '</td>'
+		+ '<td class="text-right">'  + numberWithCommas(parseFloat(e.sellingPrice).toFixed(2)) + '</td>'
 		+ '</tr>';
         $tbody.append(row);
 	}	
@@ -449,9 +405,10 @@ function generateInvoice(id){
 					 let ascii = binaryString.charCodeAt(i);
 					 bytes[i] = ascii;
 				 }
-				 let blob = new Blob([bytes], {type: "application/pdf"});
-			  downloadBillPdf(blob);
-			  var disableUrl = getOrderUrl() + "/invoice-disable/" + id;
+				let blob = new Blob([bytes], {type: "application/pdf"});
+			  	downloadBillPdf(blob);
+				handleAjaxSuccess("Invoice printed successfully!!")
+			  	var disableUrl = getOrderUrl() + "/invoice-disable/" + id;
 				$.ajax({
 					url : disableUrl,
 					type : 'GET',

@@ -41,10 +41,11 @@ function getSalesReportUrl(){
          + '<td>' + b.brand + '</td>'
          + '<td>' + b.category + '</td>'
          + '<td>' + b.quantity + '</td>'
-         + '<td class="text-right">' + parseFloat(b.revenue ).toFixed(2)+ '</td>'
+         + '<td class="text-right">' + numberWithCommas(parseFloat(b.revenue ).toFixed(2))+ '</td>'
          + '</tr>';
          $tbody.append(row);
      }
+     $('thead').show();
  }
 
 
@@ -96,7 +97,8 @@ const populateCategory = data => {
  //INITIALIZATION CODE
  function init(){
     $('#filter-sales-report').click(filterSalesReport);
-    filterSalesReport();
+    // filterSalesReport();
+    $('thead').hide();
     fillOptions();
  }
  

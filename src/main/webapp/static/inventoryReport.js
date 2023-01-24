@@ -43,10 +43,11 @@ function displayInventoryList(data){
 		+ '<td>' + index++ + '</td>'
 		+ '<td>' + e.brand + '</td>'
 		+ '<td>' + e.category + '</td>'
-		+ '<td>'  + e.quantity + '</td>'
+		+ '<td>'  + numberWithCommas(e.quantity) + '</td>'
 		+ '</tr>';
         $tbody.append(row);
 	}
+	$('thead').show();
 }
 
 const fillOptions = () => {
@@ -98,7 +99,8 @@ const populateCategory = data => {
  //INITIALIZATION CODE
  function init(){
     $('#filter-report').click(filterReport);
-	filterReport();
+	$('thead').hide();
+	// filterReport();
 	fillOptions();
  }
  

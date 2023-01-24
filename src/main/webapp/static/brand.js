@@ -46,6 +46,7 @@ function addBrand(event){
 	   success: function(response) {
 			$('#add-brand-modal').modal('toggle');
 			$form[0].reset();
+			handleAjaxSuccess("Brand added successfully!!")
 	   		getBrandList();
 	   },
 	   error: handleAjaxError
@@ -78,6 +79,8 @@ function updateBrand(event){
        	'Content-Type': 'application/json'
        },
 	   success: function(response) {
+			console.log("heya responsing");
+			handleAjaxSuccess("Brand edited successfully!!");
 	   		getBrandList();
 	   },
 	   error: handleAjaxError
@@ -101,18 +104,18 @@ function getBrandList(){
 	});
 }
 
-function deleteBrand(id){
-	var url = getBrandUrl() + "/" + id;
+// function deleteBrand(id){
+// 	var url = getBrandUrl() + "/" + id;
 
-	$.ajax({
-	   url: url,
-	   type: 'DELETE',
-	   success: function(data) {
-	   		getBrandList();
-	   },
-	   error: handleAjaxError
-	});
-}
+// 	$.ajax({
+// 	   url: url,
+// 	   type: 'DELETE',
+// 	   success: function(data) {
+// 	   		getBrandList();
+// 	   },
+// 	   error: handleAjaxError
+// 	});
+// }
 
 //// FILE UPLOAD METHODS
 //var fileData = [];

@@ -45,6 +45,7 @@ function displayBrandList(data){
 		+ '</tr>';
         $tbody.append(row);
 	}
+	$('thead').show();
 }
 
 
@@ -96,7 +97,8 @@ const populateCategory = data => {
 //INITIALIZATION CODE
 function init(){
 	$('#filter-report').click(filterReport);
-	filterReport();
+	$('thead').hide();
+	// filterReport();
 	fillOptions();
 }
  

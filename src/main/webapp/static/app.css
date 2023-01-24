@@ -65,11 +65,13 @@ a:hover, .dropdown-item:hover {
 	transition: all 0.3s ease-out;
 } */
 
-thead {
+thead{
 	top:75px !important;
 	z-index: auto !important;
 }
 
-.navbar-text {
-	vertical-align: middle;
+#logout-link:hover {
+	background-color: #d5d5d5;
+    color: #0069c2 !important;
+	border-radius: 0;
 }
