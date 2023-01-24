@@ -23,6 +23,11 @@ function handleAjaxError(response){
     $.notify(response.message + " ❌", 'error');
 }
 
+function throwError(message){
+    $.notify.defaults( {clickToHide:true,autoHide:false} );
+    $.notify(message + " ❌", 'error');
+}
+
 function handleAjaxSuccess(response){
     $.notify(response, 'success');
 }

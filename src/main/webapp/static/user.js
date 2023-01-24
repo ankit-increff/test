@@ -88,7 +88,8 @@ function displayEditUser(id){
 function displayUser(data){
 	console.log(data);
 	$("#user-edit-form input[name=email]").val(data.email);
-	$("#user-edit-form input[name=role]").val(data.role);
+	// $('select>option:eq(3)').attr('selected', true);
+	$("#user-edit-form select[name=role]").val(data.role);
 	$('#edit-user-modal').modal('toggle');
 }
 

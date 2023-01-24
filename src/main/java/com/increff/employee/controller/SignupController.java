@@ -50,6 +50,11 @@ public class SignupController {
 			return new ModelAndView("redirect:/site/signup");
 		}
 
+		if(f.getPassword().length()<4) {
+			info.setMessage("Password is too short");
+			return new ModelAndView("redirect:/site/signup");
+		}
+
 		if(service.get(f.getEmail())!=null) {
 			info.setMessage("User already exists!!");
 			return new ModelAndView("redirect:/site/login");

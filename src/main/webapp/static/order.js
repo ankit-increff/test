@@ -162,6 +162,11 @@ function editOrderForm(data) {
 //_____________________________________________MODIFY EDIT TABLE____________________________________
 function addInEditTable() {
 	let barcode = document.querySelector(".edit-barcode");
+	let quantity = document.querySelector(".edit-quantity");
+	let price = document.querySelector(".edit-price");
+
+	if(checkValue(quantity.value, price.value)===false) return;
+
 	var baseUrl = $("meta[name=baseUrl]").attr("content")
 	var productUrl = baseUrl + "/api/product"
 
@@ -189,7 +194,7 @@ function displayInEditTable(e) {
 		+ '<td class="update-barcode">' + e.barcode + '</td>'
 		+ '<td>' + e.name + '</td>'
 		+ '<td><input type="number" class="form-control update-quantity" value="'  + quantity.value + '"></td>'
-		+ '<td class="text-right"><input type="number" class="form-control update-price" value="'  + parseFloat(price.value).toFixed(2) + '"></td>'
+		+ '<td><input type="number" class="form-control text-right update-price" value="'  + parseFloat(price.value).toFixed(2) + '"></td>'
 		+ '<td class="text-center">' + buttonHtml + '</td>'
 		+ '</tr>';
      $tbody.append(row);
@@ -204,10 +209,28 @@ function removeFromModal(e) {
 	e.target.parentElement.parentElement.parentElement.remove();
 }
 
+function checkValue(quantity, price) {
+	//check
+	if(quantity<1) {
+		throwError("Quantity should be greater than 0");
+		return false;
+	}
+	if(parseFloat(price)<=0) {
+		throwError("Price should be greater than 0");
+		return false;
+	}
+	return true;
+}
+
 
 //_______________________________CREATE NEW ORDER____________________________
 function addInCreateTable() {
 	let barcode = document.querySelector(".add-barcode");
+	let quantity = document.querySelector(".add-quantity");
+	let price = document.querySelector(".add-price");
+
+	if(checkValue(quantity.value, price.value)===false) return;
+
 	var baseUrl = $("meta[name=baseUrl]").attr("content")
 	var productUrl = baseUrl + "/api/product"
 

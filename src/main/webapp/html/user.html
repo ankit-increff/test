@@ -73,8 +73,13 @@
             </div>
             <div class="form-group row">
               <label for="inputRole" class="col-sm-2 col-form-label">Role</label>
+			  
               <div class="col-sm-10">
-                <input type="text" class="form-control" name="role" placeholder="Enter Role">
+				<select class="custom-select form-control" name="role" id="inputRole">
+				<option value="supervisor" selected>Supervisor</option>
+				<option value="operator">Operator</option>
+			  </select>
+                <!-- <input type="text" class="form-control" name="role" placeholder="Enter Role"> -->
               </div>
             </div>
             <input type="hidden" name="id" >
