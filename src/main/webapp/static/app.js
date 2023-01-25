@@ -29,6 +29,7 @@ function throwError(message){
 }
 
 function handleAjaxSuccess(response){
+    $.notify.defaults( {clickToHide:true,autoHide:true} );
     $.notify(response, 'success');
 }
 

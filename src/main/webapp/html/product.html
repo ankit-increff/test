@@ -35,7 +35,7 @@
  <!-- Table -->
  <div class="col-12">
 	<table class="table table-striped table-bordered table-hover shadow p-3 mb-5 bg-white rounded" id="product-table">
-			<thead class="thead-dark sticky-top">
+			<thead class="thead-dark shadow sticky-top">
 	    <tr>
 	      <th scope="col">S no.</th>
 	      <th scope="col">Name</th>
@@ -185,22 +185,22 @@
   </div>
 
 
-<!-- Employee Edit Modal -->
-<div class="modal" tabindex="-1" role="dialog" id="upload-employee-modal">
+<!-- product Edit Modal -->
+<div class="modal" tabindex="-1" role="dialog" id="upload-product-modal">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       
       <div class="modal-header">
-        <h5 class="modal-title">Upload Employee</h5>
+        <h5 class="modal-title">Upload Product</h5>
         
       </div>
       
       <div class="modal-body">
-      	<div class="employee-file">
-		  <input type="file" class="custom-file-input" id="employeeFile">
-		  <label class="custom-file-label" for="employeeFile" id="employeeFileName">Choose file</label>
+      	<div class="product-file">
+		  <input type="file" class="custom-file-input" id="productFile">
+		  <label class="custom-file-label" for="productFile" id="productFileName">Choose file</label>
 		</div>
-		<a th:href="@{/sample/employee.tsv}" target="_blank">Download Sample</a> 
+		<a th:href="@{/sample/product.tsv}" target="_blank">Download Sample</a> 
 		<br>
 		Rows: <span id="rowCount">0</span>, 
 		Processed: <span id="processCount">0</span>, 

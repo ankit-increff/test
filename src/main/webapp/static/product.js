@@ -125,11 +125,13 @@ function uploadRows(){
        },	   
 	   success: function(response) {
 	   		uploadRows();  
+			getProductList();
 	   },
 	   error: function(response){
 	   		row.error=response.responseText
 	   		errorData.push(row);
 	   		uploadRows();
+			getProductList();
 	   }
 	});
 
@@ -226,9 +228,9 @@ function init(){
 	$('#update-product').click(updateProduct);
 	$('#refresh-data').click(getProductList);
 	$('#upload-data').click(displayUploadData);
-//	$('#process-data').click(processData);
-//	$('#download-errors').click(downloadErrors);
-//    $('#productFile').on('change', updateFileName)
+	$('#process-data').click(processData);
+	$('#download-errors').click(downloadErrors);
+   $('#productFile').on('change', updateFileName)
 	let element = document.querySelector("#product-link");
 	element.classList.add("active");
 }
