@@ -34,7 +34,7 @@ public class OrderDto {
             checkValidity(f);
         }
 
-
+        System.out.println("testing");
         OrderPojo p = new OrderPojo();
         Date date = new Date();
         p.setDate(date);
